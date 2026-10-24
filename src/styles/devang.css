@@ -1,0 +1,307 @@
+/* Devang C Portfolio Styles - Fully Polished & Harmonized */
+
+@import "./typography-and-base.css";
+@import "./footer-and-preloader.css";
+@import "./sections.css";
+
+:root {
+  --font-rajdhani: 'Rajdhani', sans-serif;
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --nav-height: 5rem;
+  --v-scale: 1;
+  --stat-lead-in: 0px;
+  --stat-lead-out: 0px;
+  --stat-dead-scroll: 0px;
+  --worked-at-dead-scroll: 0px;
+  --box-w: 3473;
+  --box-h: 988;
+  --box-x: 372;
+  --u: 0.0625rem;
+  --ice-aqua: #E3FDFD;
+  --pale-cyan: #CBF1F5;
+  --pastel-turquoise: #A6E3E9;
+  --soft-turquoise: #71C9CE;
+
+  --lavender-mist: #EEF1FF;
+
+  --primary-green-neon: #9df133;
+  --primary-green-line: #93e727;
+  --primary-green-box: #84c72f;
+  --primary-green-box-stroke: #599f00;
+  --text-black: #070210;
+  --text-white: #ffffff;
+  --text-grey-1: #747785;
+  --text-white-grey: #b0b4c0;
+}
+
+body {
+  background-color: #0B0B12;
+  color: #f5f0eb;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   Section Transitions & Surface Themes
+   ========================================================================== */
+
+[data-surface="green"] {
+  background-color: var(--pastel-periwinkle) !important;
+  color: var(--text-black) !important;
+}
+
+/* 1. Hero Section */
+.home-hero {
+  background: #0B0B12;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.home-hero-pin {
+  height: calc(100vh - var(--nav-height, 5rem)) !important;
+  min-height: 650px;
+  width: 100%;
+  position: relative;
+  overflow: hidden !important;
+}
+
+.home-layer {
+  position: absolute;
+}
+
+/* 2. Stat & Snap-shots Section */
+.stat-stage {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  position: relative !important;
+  z-index: 10 !important;
+  background-color: var(--soft-turquoise) !important;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.stat-box {
+  --oh: 1 !important;
+  --ow: 1 !important;
+  clip-path: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.stat-box-bg {
+  opacity: 1 !important;
+}
+
+/* 3. Selected Work Section */
+.selected-work-outer {
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 20 !important;
+  background-color: var(--soft-turquoise) !important;
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+.selected-work {
+  background-color: var(--soft-turquoise) !important;
+  width: 100%;
+  position: relative;
+}
+
+.selected-work-title {
+  color: var(--text-black) !important;
+}
+
+.selected-work-description {
+  color: #297a52 !important;
+}
+
+.work-card-title {
+  color: var(--text-black) !important;
+  font-weight: 700 !important;
+}
+
+.work-card-visit {
+  color: #297a52 !important;
+}
+
+.work-card-visit:hover {
+  color: var(--text-black) !important;
+}
+
+.work-viewport {
+  position: relative !important;
+  width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.work-track {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 2rem !important;
+  width: max-content !important;
+  left: 0 !important;
+  top: 0 !important;
+  padding: 1.5rem 2rem 3rem 2rem !important;
+}
+
+.work-card {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  flex-shrink: 0 !important;
+}
+
+.work-card.work-card-lg {
+  width: 440px !important;
+}
+
+.work-card.work-card-sm {
+  width: 325px !important;
+}
+
+@media (max-width: 1024.98px) {
+  .work-track {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    padding: 1rem !important;
+  }
+  .work-card {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .work-track {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+/* 4. Worked At Section */
+.worked-at-stage {
+  margin-top: 0 !important;
+  position: relative !important;
+  z-index: 30 !important;
+  background-color: #0B0B12 !important;
+}
+
+.worked-at {
+  background-color: #0B0B12 !important;
+  color: #ffffff !important;
+  min-height: 100vh;
+  padding: 6rem 2rem 4rem !important;
+}
+
+@media (min-width: 1025px) {
+  .worked-at-body {
+    grid-template-columns: 1fr 340px 1fr !important;
+    grid-template-areas: "left stage right" "desc desc desc" !important;
+    align-items: center !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
+  .worked-at-crt {
+    grid-area: stage !important;
+    min-height: 300px !important;
+    height: 100% !important;
+  }
+  .worked-at-description {
+    grid-area: desc !important;
+    text-align: center !important;
+    margin-top: 2.5rem !important;
+  }
+}
+
+/* 5. Footer Section */
+.footer-dock {
+  position: relative !important;
+  z-index: 40 !important;
+  background-color: var(--soft-turquoise) !important;
+  color: var(--text-black) !important;
+}
+
+.site-footer {
+  background-color: var(--soft-turquoise) !important;
+  color: var(--text-black) !important;
+  position: relative;
+  padding: 4rem 2rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column !important;
+  }
+  .footer-cta, .footer-social {
+    width: 100% !important;
+    height: auto !important;
+    padding: 1.5rem !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--soft-turquoise) !important;
+  }
+}
+
+/* Devang C Hero Headings */
+.home-heading--devang {
+  top: calc(33.9375rem * var(--v-scale, 1));
+  font-size: calc(11.25rem * var(--v-scale, 1));
+  letter-spacing: -0.06em;
+  margin-left: -0.071em;
+  left: calc(20% + 1.2rem);
+}
+.home-heading--c {
+  top: calc(42.6875rem * var(--v-scale, 1));
+  font-size: calc(11.25rem * var(--v-scale, 1));
+  letter-spacing: -0.06em;
+  margin-left: -0.082em;
+  left: 2rem;
+}
+@media (min-width: 768px) and (max-width: 1024.98px) {
+  .home-heading--devang {
+    top: calc(51.625rem * var(--v-scale, 1));
+    font-size: calc(11.775rem * var(--v-scale, 1));
+    left: 2rem;
+  }
+  .home-heading--c {
+    top: calc(61.045rem * var(--v-scale, 1));
+    font-size: calc(11.775rem * var(--v-scale, 1));
+    left: 2rem;
+  }
+}
+@media (max-width: 767.98px) {
+  .home-heading--devang {
+    top: calc(33rem * var(--v-scale, 1));
+    font-size: calc(6.25rem * var(--v-scale, 1));
+    letter-spacing: -0.05em;
+    left: 1rem;
+  }
+  .home-heading--c {
+    top: calc(37.875rem * var(--v-scale, 1));
+    font-size: calc(6.25rem * var(--v-scale, 1));
+    letter-spacing: -0.05em;
+    left: 1rem;
+  }
+}
+
+/* Utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

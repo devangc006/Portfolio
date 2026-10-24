@@ -1,0 +1,433 @@
+/* Sterling Gate: Kinetic Navigation Styles */
+
+@font-face {
+  font-family: 'PP Neue Corp Tight';
+  src: url('https://cdn.prod.website-files.com/673af51dea86ab95d124c3ee/673b0f5784f7060c0ac05534_PPNeueCorp-TightUltrabold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('https://cdn.prod.website-files.com/6819ed8312518f61b84824df/6819ed8312518f61b84825ba_PPNeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-primary: #9df133;
+  --color-primary-accent: #6366f1;
+  --color-dark: #ffffff;
+  --color-neutral-100: #1b1b26;
+  --color-neutral-200: #262638;
+  --color-neutral-300: #0b0b12;
+  --color-neutral-800: #9df133;
+  --size-container: 1400px;
+  --container-padding: 2.5rem;
+  --section-padding: 4rem;
+  --gap: 1.75rem;
+  --cubic-default: cubic-bezier(0.65, 0.05, 0, 1);
+  --menu-padding: 2.25rem;
+}
+
+.site-header-wrapper {
+  z-index: 120;
+  position: fixed;
+  inset: 0 0 auto 0;
+  pointer-events: none;
+}
+
+.header {
+  width: 100%;
+  padding-top: var(--gap);
+  padding-bottom: 1rem;
+  pointer-events: none;
+}
+
+.nav-container {
+  z-index: 1;
+  width: 100%;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-logo-row {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.nav-logo-row:hover {
+  opacity: 0.85;
+}
+
+.logo-text {
+  color: #ffffff;
+  letter-spacing: 0.15em;
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-family: var(--font-rajdhani, 'Rajdhani', sans-serif);
+  text-transform: uppercase;
+}
+
+.nav-row__right {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nav-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  padding: 0.625rem 0;
+  font-size: 1.125rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.nav-close-btn:hover {
+  color: var(--color-primary);
+}
+
+.menu-button-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: 1.4em;
+  overflow: hidden;
+}
+
+.menu-button-text .p-large {
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: var(--font-rajdhani, 'Rajdhani', sans-serif);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.4em;
+  margin: 0;
+}
+
+/* Fullscreen / Drawer Gate */
+.fullscreen-menu-container {
+  position: relative;
+}
+
+.nav-overlay-wrapper {
+  z-index: 100;
+  width: 100%;
+  height: 100dvh;
+  position: fixed;
+  inset: 0;
+  display: none;
+}
+
+.nav-overlay-wrapper[data-nav="open"] {
+  display: block;
+}
+
+.nav-overlay-wrapper[data-nav="closed"] {
+  display: none;
+}
+
+.overlay {
+  z-index: 0;
+  position: absolute;
+  inset: 0;
+  background-color: rgba(4, 4, 8, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.menu-content {
+  position: relative;
+  width: 38rem;
+  max-width: 100%;
+  height: 100%;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: calc(4.5 * var(--menu-padding));
+  padding-bottom: var(--menu-padding);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.7);
+}
+
+.menu-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.backdrop-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-top-left-radius: 1.75rem;
+  border-bottom-left-radius: 1.75rem;
+  background-color: #0b0b14;
+}
+
+.backdrop-layer.first {
+  background-color: var(--color-primary);
+  opacity: 0.95;
+}
+
+.backdrop-layer.second {
+  background-color: #161622;
+}
+
+.ambient-background-shapes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.bg-shape.active {
+  opacity: 1;
+}
+
+.shape-element {
+  transform-origin: 50% 50%;
+}
+
+.menu-content-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  gap: 3rem;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-list-item {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  width: 100%;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  padding-left: var(--menu-padding);
+  padding-right: var(--menu-padding);
+  color: #ffffff;
+  text-decoration: none;
+  overflow: hidden;
+  transition: color 0.4s ease;
+}
+
+.nav-link:hover {
+  color: #000000;
+}
+
+.eyebrow {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  letter-spacing: 0.15em;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover .eyebrow {
+  color: #000000;
+}
+
+.nav-link-text {
+  position: relative;
+  z-index: 2;
+  text-transform: uppercase;
+  font-family: 'PP Neue Corp Tight', var(--font-rajdhani, 'Rajdhani'), Impact, sans-serif;
+  font-size: clamp(3rem, 7vw, 5.25rem);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: 0.02em;
+  text-shadow: 0px 1em 0px #ffffff;
+  transition: transform 0.55s var(--cubic-default);
+}
+
+.nav-link:hover .nav-link-text {
+  transition-delay: 0.08s;
+  transform: translateY(-1em);
+  text-shadow: 0px 1em 0px #000000;
+}
+
+.nav-link-hover-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: var(--color-primary);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.5s var(--cubic-default);
+}
+
+.nav-link:hover .nav-link-hover-bg {
+  transform: scaleY(1);
+}
+
+.menu-details {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-left: var(--menu-padding);
+  padding-right: var(--menu-padding);
+  width: 100%;
+}
+
+.menu-details-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.menu-details-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.menu-details-email {
+  font-family: var(--font-rajdhani, 'Rajdhani', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.menu-details-email:hover {
+  color: var(--color-primary);
+}
+
+.socials-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.text-link {
+  position: relative;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  padding-bottom: 2px;
+  transition: color 0.2s ease;
+}
+
+.text-link:hover {
+  color: #ffffff;
+}
+
+.text-link:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+  transition: transform 0.4s var(--cubic-default);
+}
+
+.text-link:hover:after {
+  transform: scaleX(1);
+  transform-origin: 0% 50%;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 767px) {
+  :root {
+    --container-padding: 1.25rem;
+    --menu-padding: 1.5rem;
+    --gap: 1.25rem;
+  }
+
+  .menu-content {
+    width: 100%;
+    padding-top: calc(5 * var(--menu-padding));
+  }
+
+  .backdrop-layer {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .nav-link-text {
+    font-size: clamp(2.5rem, 12vw, 3.75rem);
+  }
+
+  .socials-row {
+    gap: 1rem;
+  }
+}

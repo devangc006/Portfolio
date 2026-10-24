@@ -1,0 +1,14 @@
+<svg width="85" height="85" viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="mongo-left-def">
+      <rect x="0" y="0" width="50" height="100" />
+    </clipPath>
+    <clipPath id="mongo-right-def">
+      <rect x="50" y="0" width="50" height="100" />
+    </clipPath>
+  </defs>
+  <g transform="translate(42.5 42.5) scale(0.72) translate(-50 -50)">
+    <path fill="#2F480F" fill-opacity="0.75" clip-path="url(#mongo-left-def)" fill-rule="evenodd" d="M57.7,15c-3.7-4.5-7-9-7.6-10,0,0-.2,0-.2,0-.7.9-3.9,5.5-7.6,10-32.1,41.3,5.1,69.3,5.1,69.3l.3.2c.3,4.3,1,10.5,1,10.5h2.8s.7-6.2,1-10.5l.3-.2s37.2-27.9,5.1-69.2ZM50,83.7s-1.7-1.4-2.1-2.2h0c0,0,2-45.1,2-45.1,0-.1.2-.1.2,0l2,45h0c-.5.8-2.1,2.2-2.1,2.2Z"/>
+    <path fill="#2F480F" fill-opacity="1.0" clip-path="url(#mongo-right-def)" fill-rule="evenodd" d="M57.7,15c-3.7-4.5-7-9-7.6-10,0,0-.2,0-.2,0-.7.9-3.9,5.5-7.6,10-32.1,41.3,5.1,69.3,5.1,69.3l.3.2c.3,4.3,1,10.5,1,10.5h2.8s.7-6.2,1-10.5l.3-.2s37.2-27.9,5.1-69.2ZM50,83.7s-1.7-1.4-2.1-2.2h0c0,0,2-45.1,2-45.1,0-.1.2-.1.2,0l2,45h0c-.5.8-2.1,2.2-2.1,2.2Z"/>
+  </g>
+</svg>

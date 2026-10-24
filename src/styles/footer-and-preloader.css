@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Footer & Preloader
+   - Site Footer (CTA, social links, big marquee text, dot-trail canvas)
+   - Preloader animation, chamfer borders, and loading percentage
+   ========================================================================== */
+
+.site-footer {
+  background: var(--pastel-turquoise);
+  color: var(--text-black);
+}
+.footer-top {
+  width: 100%;
+  display: flex;
+}
+.footer-cta,
+.footer-social {
+  width: 50%;
+  height: 14.875rem;
+  padding: 2rem;
+}
+.footer-cta {
+  border-right: 1px solid var(--pale-cyan);
+}
+.footer-social {
+  overflow: hidden;
+}
+.footer-headline {
+  letter-spacing: -0.04em;
+  width: 17.3125rem;
+  font-size: 2.5rem;
+  line-height: 0.8;
+}
+.footer-buttons {
+  gap: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+}
+.footer-button {
+  width: 9.875rem;
+  height: 2.875rem;
+}
+.footer-links-grid {
+  grid-template-columns: auto max-content max-content;
+  justify-content: end;
+  align-items: center;
+  gap: 1.25rem 3.125rem;
+  display: grid;
+}
+.footer-link {
+  justify-content: space-between;
+}
+.footer-bigtext-box {
+  border-top: 1px solid var(--pale-cyan);
+  height: 0.91em;
+  font-size: 13.889vw;
+  position: relative;
+  overflow: clip;
+}
+.dot-trail {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+  display: block;
+  position: relative;
+}
+.dot-trail-canvas {
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.dot-trail[data-gl="on"] .dot-trail-text {
+  color: #0000;
+}
+.footer-bigtext {
+  letter-spacing: -0.03em;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 500;
+  line-height: 0.8;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+@media (max-width: 1024.98px) {
+  .footer-cta,
+  .footer-social {
+    height: 12.875rem;
+    padding: 1rem;
+  }
+  .footer-buttons {
+    gap: 1.5rem;
+  }
+  .footer-button {
+    width: 11.25rem;
+  }
+  .footer-links-grid {
+    grid-template-columns: 1fr max-content max-content;
+    justify-content: stretch;
+    column-gap: 1.65625rem;
+  }
+  .footer-bigtext-box {
+    height: 0.9565em;
+    font-size: 13.789vw;
+  }
+  .footer-bigtext {
+    bottom: 0.0435em;
+  }
+}
+@media (max-width: 767.98px) {
+  .footer-top {
+    flex-direction: column;
+  }
+  .footer-cta {
+    border-right: none;
+    border-bottom: 1px solid var(--pale-cyan);
+    width: 100%;
+    height: 13.125rem;
+  }
+  .footer-social {
+    width: 100%;
+    height: 6.75rem;
+  }
+  .footer-buttons {
+    width: 100%;
+  }
+  .footer-button {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+  .footer-links-grid {
+    column-gap: 2rem;
+  }
+  .footer-bigtext-box {
+    height: 1.068em;
+    font-size: 13.409vw;
+  }
+  .footer-bigtext {
+    bottom: 0.132em;
+  }
+}
+html:not([data-preload]) .preloader {
+  display: none;
+}
+.preloader {
+  z-index: 10000;
+  background: var(--pastel-cyan);
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+.preloader-line {
+  background: var(--ice-aqua);
+  position: absolute;
+}
+.preloader {
+  --preloader-line: 1px;
+}
+.preloader-line-v {
+  width: var(--preloader-line);
+  height: 100%;
+}
+.preloader-line-h {
+  height: var(--preloader-line);
+  width: 100%;
+}
+.preloader-line-left {
+  bottom: 0;
+  left: 2rem;
+  transform: translate(calc(-2rem - 2px));
+}
+.preloader-line-right {
+  top: 0;
+  right: 2rem;
+  transform: translate(calc(2rem + 2px));
+}
+.preloader-line-top {
+  top: 2rem;
+  left: 0;
+  transform: translateY(calc(-2rem - 2px));
+}
+.preloader-line-bottom {
+  bottom: 2rem;
+  right: 0;
+  transform: translateY(calc(2rem + 2px));
+}
+.preloader-percent {
+  font-family: var(--font-heading);
+  color: #070210;
+  opacity: 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.preloader-chamfer {
+  pointer-events: none;
+  width: 8.797rem;
+  height: 1.3125rem;
+  position: absolute;
+}
+.preloader-chamfer-top {
+  top: -1.5px;
+  left: 50%;
+  transform: translate(-50%);
+}
+.preloader-chamfer-bottom {
+  bottom: -1.5px;
+  left: 50%;
+  transform: translate(-50%) rotate(180deg);
+}
+.preloader-chamfer-left {
+  top: 50%;
+  left: calc(-1.5px - 3.742rem);
+  transform: translateY(-50%) rotate(-90deg);
+}
+.preloader-chamfer-right {
+  top: 50%;
+  right: calc(-1.5px - 3.742rem);
+  transform: translateY(-50%) rotate(90deg);
+}
+.preloader-plus {
+  --plus-offset: calc(-0.3125rem + var(--preloader-line) / 2);
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: var(--plus-offset) 0 0 var(--plus-offset);
+  color: #070210;
+  pointer-events: none;
+  position: absolute;
+}
+.preloader-plus-tl {
+  top: 2rem;
+  left: 2rem;
+  transform: translate(calc(-2rem - 2px), calc(-2rem - 2px));
+}
+.preloader-plus-tr {
+  margin: var(--plus-offset) var(--plus-offset) 0 0;
+  top: 2rem;
+  right: 2rem;
+  transform: translate(calc(2rem + 2px), calc(-2rem - 2px));
+}
+.preloader-plus-bl {
+  margin: 0 0 var(--plus-offset) var(--plus-offset);
+  bottom: 2rem;
+  left: 2rem;
+  transform: translate(calc(-2rem - 2px), calc(2rem + 2px));
+}
+.preloader-plus-br {
+  margin: 0 var(--plus-offset) var(--plus-offset) 0;
+  bottom: 2rem;
+  right: 2rem;
+  transform: translate(calc(2rem + 2px), calc(2rem + 2px));
+}
