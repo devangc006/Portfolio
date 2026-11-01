@@ -118,7 +118,21 @@ export default function App() {
     <SoundProvider>
       <MenuProvider>
         <SurfaceToneProvider>
-          <Preloader />
+          {/*
+            ====================================================================
+            React Bits Pro Preloader
+            Docs: https://pro.reactbits.dev/docs/components/preloader
+            Variants: 'stairs' | 'percentage' | 'circle' | 'slide' | 'curtain'
+            ====================================================================
+          */}
+          <Preloader
+            variant="percentage"
+            duration={2000}
+            stairCount={10}
+            stairsRevealFrom="left"
+            stairsRevealDirection="up"
+            loadingText="Loading..."
+          />
           <PortfolioMain />
         </SurfaceToneProvider>
       </MenuProvider>
