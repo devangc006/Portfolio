@@ -128,9 +128,8 @@ export default function App() {
           <Preloader
             variant="percentage"
             duration={2000}
-            stairCount={10}
-            stairsRevealFrom="left"
-            stairsRevealDirection="up"
+            bgColor="#0A0A0A"
+            accentColor="#EF4444"
             loadingText="Loading..."
           />
           <PortfolioMain />

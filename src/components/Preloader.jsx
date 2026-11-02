@@ -2,12 +2,14 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 /**
- * React Bits Pro Preloader Component
- * Reference: https://pro.reactbits.dev/docs/components/preloader
+ * Preloader Component
+ *
+ * Themed to match the pitch-black (#0A0A0A) and blood-red/crimson aesthetic of the website.
+ * Features a deep crimson atmospheric radial glow on a pitch-black background.
  *
  * Supports 5 visual variants:
- * 1. 'stairs'     - Staggered vertical stair columns revealing the page
- * 2. 'percentage' - High-precision numerical counter with optional progress bar
+ * 1. 'percentage' - High-precision numerical counter with crimson progress bar & ambient glow (default)
+ * 2. 'stairs'     - Staggered vertical stair columns revealing the page
  * 3. 'circle'     - Circular progress ring with smooth status indicators
  * 4. 'slide'      - Monolithic full-screen sliding panel wipe
  * 5. 'curtain'    - Split double-doors parting horizontally from the center
@@ -16,19 +18,19 @@ export default function Preloader({
   // Controlled or uncontrolled active state
   loading: controlledLoading,
 
-  // Variant: 'stairs' | 'percentage' | 'circle' | 'slide' | 'curtain'
-  variant = 'stairs',
+  // Variant: 'percentage' | 'stairs' | 'circle' | 'slide' | 'curtain'
+  variant = 'percentage',
 
   // Layout & positioning
   position = 'fixed',
   zIndex = 9999,
-  bgColor = '#070210',
-  accentColor = 'var(--primary-green-neon, #9df133)',
+  bgColor = '#0A0A0A',
+  accentColor = '#EF4444',
 
   // Animation timing
-  duration = 2400, // Total duration in ms before starting exit transition
+  duration = 2000, // Total duration in ms before starting exit transition
 
-  // Primary loading text (defaults to clean 'Loading...')
+  // Primary loading text
   loadingText = 'Loading...',
   textClassName = '',
 
@@ -112,8 +114,15 @@ export default function Preloader({
   const exitY = stairsRevealDirection === 'up' ? '-100%' : '100%'
   const customEase = [0.76, 0, 0.24, 1]
 
-  // Shared container wrapper classes
-  const containerClasses = `${position} inset-0 pointer-events-auto select-none overflow-hidden`
+  // Shared container wrapper: Transparent so exit animations (slide/wipe) reveal the website underneath immediately
+  const containerClasses = `${position} inset-0 pointer-events-auto select-none overflow-hidden bg-transparent`
+
+  // Deep moody crimson atmospheric gradient matching the website's dark crimson theme
+  const themedBgStyle = {
+    backgroundColor: bgColor,
+    backgroundImage:
+      'radial-gradient(ellipse 95% 75% at 50% 45%, #200404 0%, #110101 45%, #0A0A0A 85%)',
+  }
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
@@ -131,16 +140,93 @@ export default function Preloader({
           aria-busy="true"
         >
           {/* =================================================================
-              VARIANT 1: STAIRS
+              VARIANT 1: PERCENTAGE (Default)
+             ================================================================= */}
+          {variant === 'percentage' && (
+            <motion.div
+              className="relative w-full h-full flex flex-col justify-center items-center p-8 md:p-14 overflow-hidden"
+              style={themedBgStyle}
+              exit={{
+                y: '-100%',
+                transition: { duration: 0.85, ease: customEase },
+              }}
+            >
+              {/* Diffuse crimson atmospheric backdrop glow layers */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute w-[80vw] max-w-4xl h-[55vh] bg-[#B91C1C]/15 rounded-full blur-[110px] md:blur-[150px] -z-0"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute w-[50vw] max-w-2xl h-[35vh] bg-[#8B0000]/25 rounded-full blur-[70px] md:blur-[100px] -z-0"
+              />
+
+              {/* Counter Placement */}
+              <div
+                className={`relative z-10 w-full flex ${
+                  percentagePosition === 'center'
+                    ? 'items-center justify-center my-auto flex-col text-center'
+                    : percentagePosition === 'top-left'
+                    ? 'items-start justify-start my-12 flex-col'
+                    : 'items-start justify-end my-12 flex-col' // 'bottom-left'
+                }`}
+              >
+                {/* Loading Text Label */}
+                <div className="flex items-center gap-2.5 mb-4">
+                  <span
+                    className="w-2 h-2 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]"
+                    style={{ backgroundColor: accentColor }}
+                  />
+                  <span className="font-mono text-xs uppercase tracking-[0.3em] text-[#9CA3AF]">
+                    {loadingText}
+                  </span>
+                </div>
+
+                {/* Large Tabular Percentage Number */}
+                <div
+                  className={`font-heading text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-tighter text-white tabular-nums select-none drop-shadow-[0_0_35px_rgba(185,28,28,0.4)] ${percentageTextClassName}`}
+                >
+                  {percent}
+                  {showPercentageSign && (
+                    <span className="text-3xl sm:text-5xl font-light text-[#EF4444]/90 ml-1.5">
+                      %
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Progress Bar (Top or Bottom) */}
+              {showProgressBar && (
+                <div
+                  className={`absolute left-0 right-0 h-[2px] bg-white/[0.05] border-t border-[#B91C1C]/15 overflow-hidden ${
+                    progressBarPosition === 'top' ? 'top-0' : 'bottom-0'
+                  }`}
+                >
+                  <motion.div
+                    className="h-full transition-all duration-75"
+                    style={{
+                      width: `${percent}%`,
+                      background:
+                        'linear-gradient(90deg, #8B0000 0%, #B91C1C 60%, #EF4444 100%)',
+                      boxShadow: '0 0 16px rgba(239, 68, 68, 0.75)',
+                    }}
+                  />
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* =================================================================
+              VARIANT 2: STAIRS
              ================================================================= */}
           {variant === 'stairs' && (
-            <div className="relative w-full h-full flex">
+            <div className="relative w-full h-full flex bg-[#0A0A0A]">
               {/* Stair columns */}
               {stairIndices.map((_, i) => (
                 <motion.div
                   key={i}
-                  className="h-full flex-1 relative"
-                  style={{ backgroundColor: bgColor }}
+                  className="h-full flex-1 relative border-r border-[#B91C1C]/10"
+                  style={themedBgStyle}
                   initial={{ y: '0%' }}
                   exit={{
                     y: exitY,
@@ -164,17 +250,26 @@ export default function Preloader({
                   transition: { duration: 0.35, ease: 'easeInOut' },
                 }}
               >
+                {/* Ambient back-glow */}
+                <div
+                  aria-hidden="true"
+                  className="absolute w-72 h-72 bg-[#B91C1C]/15 rounded-full blur-[90px] -z-10 pointer-events-none"
+                />
+
                 {/* Primary Loading Text */}
                 <h2
-                  className={`font-heading text-3xl md:text-5xl font-bold tracking-tight text-white mb-3 max-w-lg ${textClassName}`}
+                  className={`font-heading text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3 max-w-lg drop-shadow-[0_0_25px_rgba(185,28,28,0.3)] ${textClassName}`}
                 >
                   {loadingText}
                 </h2>
 
                 {/* Percentage counter indicator */}
                 <div className="flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full animate-ping" style={{ backgroundColor: accentColor }} />
-                  <span className="font-mono text-xs tracking-widest text-neutral-300">
+                  <span
+                    className="w-2 h-2 rounded-full animate-ping shadow-[0_0_10px_#EF4444]"
+                    style={{ backgroundColor: accentColor }}
+                  />
+                  <span className="font-mono text-xs tracking-[0.25em] text-[#EF4444]">
                     {percent}%
                   </span>
                 </div>
@@ -183,88 +278,34 @@ export default function Preloader({
           )}
 
           {/* =================================================================
-              VARIANT 2: PERCENTAGE
-             ================================================================= */}
-          {variant === 'percentage' && (
-            <motion.div
-              className="relative w-full h-full flex flex-col justify-center items-center p-8 md:p-14"
-              style={{ backgroundColor: bgColor }}
-              exit={{
-                y: '-100%',
-                transition: { duration: 0.8, ease: customEase },
-              }}
-            >
-              {/* Counter Placement */}
-              <div
-                className={`w-full flex ${
-                  percentagePosition === 'center'
-                    ? 'items-center justify-center my-auto flex-col text-center'
-                    : percentagePosition === 'top-left'
-                    ? 'items-start justify-start my-12 flex-col'
-                    : 'items-start justify-end my-12 flex-col' // 'bottom-left'
-                }`}
-              >
-                {/* Loading Text Label */}
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: accentColor }} />
-                  <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">
-                    {loadingText}
-                  </span>
-                </div>
-
-                {/* Large Tabular Percentage Number */}
-                <div
-                  className={`font-heading text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter text-white tabular-nums select-none ${percentageTextClassName}`}
-                >
-                  {percent}
-                  {showPercentageSign && (
-                    <span className="text-3xl sm:text-5xl font-light text-neutral-500 ml-1">%</span>
-                  )}
-                </div>
-              </div>
-
-              {/* Progress Bar (Top or Bottom) */}
-              {showProgressBar && (
-                <div
-                  className={`absolute left-0 right-0 h-1 bg-white/10 overflow-hidden ${
-                    progressBarPosition === 'top' ? 'top-0' : 'bottom-0'
-                  }`}
-                >
-                  <motion.div
-                    className="h-full transition-all duration-75"
-                    style={{
-                      width: `${percent}%`,
-                      backgroundColor: accentColor,
-                    }}
-                  />
-                </div>
-              )}
-            </motion.div>
-          )}
-
-          {/* =================================================================
               VARIANT 3: CIRCLE
              ================================================================= */}
           {variant === 'circle' && (
             <motion.div
-              className="relative w-full h-full flex flex-col items-center justify-center p-6 text-center"
-              style={{ backgroundColor: bgColor }}
+              className="relative w-full h-full flex flex-col items-center justify-center p-6 text-center overflow-hidden"
+              style={themedBgStyle}
               exit={{
                 scale: 0.95,
                 opacity: 0,
                 transition: { duration: 0.6, ease: customEase },
               }}
             >
+              {/* Ambient backdrop glow */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute w-64 h-64 bg-[#B91C1C]/15 rounded-full blur-[80px] -z-0"
+              />
+
               {/* Circular SVG Ring */}
-              <div className="relative w-44 h-44 flex items-center justify-center mb-6">
+              <div className="relative w-44 h-44 flex items-center justify-center mb-6 z-10">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
                   {/* Background Track */}
                   <circle
                     cx="50"
                     cy="50"
                     r="42"
-                    stroke="rgba(255,255,255,0.08)"
-                    strokeWidth="4"
+                    stroke="rgba(255,255,255,0.06)"
+                    strokeWidth="3.5"
                     fill="none"
                   />
                   {/* Active Animated Progress Stroke */}
@@ -273,26 +314,31 @@ export default function Preloader({
                     cy="50"
                     r="42"
                     stroke="currentColor"
-                    strokeWidth="4"
+                    strokeWidth="3.5"
                     fill="none"
                     strokeDasharray={264}
                     strokeDashoffset={264 - (264 * percent) / 100}
                     strokeLinecap="round"
                     className="transition-[stroke-dashoffset] duration-75"
-                    style={{ color: accentColor }}
+                    style={{
+                      color: accentColor,
+                      filter: 'drop-shadow(0 0 8px rgba(239, 68, 68, 0.6))',
+                    }}
                   />
                 </svg>
 
                 {/* Inner Counter Value */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="font-heading text-3xl font-bold text-white tabular-nums">
+                  <span className="font-heading text-3xl font-extrabold text-white tabular-nums drop-shadow-[0_0_15px_rgba(185,28,28,0.4)]">
                     {percent}%
                   </span>
                 </div>
               </div>
 
               {/* Loading Text */}
-              <h2 className={`font-heading text-xl md:text-2xl font-bold text-white ${textClassName}`}>
+              <h2
+                className={`relative z-10 font-heading text-xl md:text-2xl font-bold text-white tracking-wide ${textClassName}`}
+              >
                 {loadingText}
               </h2>
             </motion.div>
@@ -303,16 +349,22 @@ export default function Preloader({
              ================================================================= */}
           {variant === 'slide' && (
             <motion.div
-              className="relative w-full h-full flex flex-col items-center justify-center p-8 text-center"
-              style={{ backgroundColor: bgColor }}
+              className="relative w-full h-full flex flex-col items-center justify-center p-8 text-center overflow-hidden"
+              style={themedBgStyle}
               exit={{
                 y: '-100%',
                 transition: { duration: 0.85, ease: customEase },
               }}
             >
+              {/* Ambient aura */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute w-80 h-80 bg-[#B91C1C]/15 rounded-full blur-[100px] -z-0"
+              />
+
               {/* Loading Text */}
               <motion.h2
-                className={`font-heading text-4xl md:text-6xl font-bold text-white tracking-tight mb-6 max-w-xl ${textClassName}`}
+                className={`relative z-10 font-heading text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 max-w-xl drop-shadow-[0_0_25px_rgba(185,28,28,0.3)] ${textClassName}`}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
@@ -321,12 +373,14 @@ export default function Preloader({
               </motion.h2>
 
               {/* Progress Indicator */}
-              <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+              <div className="relative z-10 w-52 h-1.5 bg-white/[0.08] rounded-full overflow-hidden border border-[#B91C1C]/20">
                 <motion.div
                   className="h-full rounded-full"
                   style={{
                     width: `${percent}%`,
-                    backgroundColor: accentColor,
+                    background:
+                      'linear-gradient(90deg, #8B0000 0%, #B91C1C 60%, #EF4444 100%)',
+                    boxShadow: '0 0 12px rgba(239, 68, 68, 0.7)',
                   }}
                 />
               </div>
@@ -337,11 +391,11 @@ export default function Preloader({
               VARIANT 5: CURTAIN
              ================================================================= */}
           {variant === 'curtain' && (
-            <div className="relative w-full h-full flex overflow-hidden">
+            <div className="relative w-full h-full flex overflow-hidden bg-[#0A0A0A]">
               {/* Left Curtain Door */}
               <motion.div
-                className="w-1/2 h-full relative"
-                style={{ backgroundColor: bgColor }}
+                className="w-1/2 h-full relative border-r border-[#B91C1C]/10"
+                style={themedBgStyle}
                 initial={{ x: '0%' }}
                 exit={{
                   x: '-100%',
@@ -351,8 +405,8 @@ export default function Preloader({
 
               {/* Right Curtain Door */}
               <motion.div
-                className="w-1/2 h-full relative"
-                style={{ backgroundColor: bgColor }}
+                className="w-1/2 h-full relative border-l border-[#B91C1C]/10"
+                style={themedBgStyle}
                 initial={{ x: '0%' }}
                 exit={{
                   x: '100%',
@@ -371,10 +425,12 @@ export default function Preloader({
                   transition: { duration: 0.3 },
                 }}
               >
-                <h2 className={`font-heading text-3xl md:text-5xl font-bold text-white mb-3 ${textClassName}`}>
+                <h2
+                  className={`font-heading text-3xl md:text-5xl font-extrabold text-white mb-3 drop-shadow-[0_0_25px_rgba(185,28,28,0.3)] ${textClassName}`}
+                >
                   {loadingText}
                 </h2>
-                <span className="font-mono text-xs tracking-widest text-neutral-300">
+                <span className="font-mono text-xs tracking-[0.25em] text-[#EF4444]">
                   {percent}%
                 </span>
               </motion.div>
