@@ -5,7 +5,6 @@ import { SoundProvider } from './context/SoundContext'
 import { MenuProvider } from './context/MenuContext'
 import { SurfaceToneProvider, useSurfaceTone } from './context/SurfaceToneContext'
 
-import Preloader from './components/Preloader'
 import LandscapeNotice from './components/LandscapeNotice'
 import GyroscopeCursor from './components/GyroscopeCursor'
 import Navbar from './components/Navbar'
@@ -118,20 +117,6 @@ export default function App() {
     <SoundProvider>
       <MenuProvider>
         <SurfaceToneProvider>
-          {/*
-            ====================================================================
-            React Bits Pro Preloader
-            Docs: https://pro.reactbits.dev/docs/components/preloader
-            Variants: 'stairs' | 'percentage' | 'circle' | 'slide' | 'curtain'
-            ====================================================================
-          */}
-          <Preloader
-            variant="percentage"
-            duration={2000}
-            bgColor="#0A0A0A"
-            accentColor="#EF4444"
-            loadingText="Loading..."
-          />
           <PortfolioMain />
         </SurfaceToneProvider>
       </MenuProvider>
