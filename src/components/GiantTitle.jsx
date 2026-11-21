@@ -30,6 +30,9 @@ export function GiantTitle({
   subtitle,
   shading = 'linear',
   stretch = 1.4,
+  stretchY,
+  stretchX = 1,
+  shiftX = '',
   tracking = 'tracking-[-0.055em]',
   fontSize = 'text-[clamp(4.5rem,min(18vw,30vh),24rem)]',
   heightMode = 'topHalf',
@@ -38,6 +41,9 @@ export function GiantTitle({
   className = '',
   textClassName = '',
 }) {
+  const effectiveStretchY = stretchY ?? stretch
+  const effectiveStretchX = stretchX ?? 1
+
   // Linear gradient: luminous crimson highlight at top crest, rich blood-red body, fading darker to deep shadowy red at bottom
   // Radial gradient: luminous top/center highlight popping out, descending into deep moody crimson base
   const textGradientStyle =
@@ -64,13 +70,13 @@ export function GiantTitle({
 
   return (
     <div
-      className={`relative w-full bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 md:px-12 select-none ${heightClasses} ${className}`}
+      className={`relative w-full bg-transparent flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 md:px-12 select-none ${heightClasses} ${className}`}
     >
       {/* Pitch-black backdrop ambient glow layer */}
       {ambientGlow && (
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex items-center justify-center -z-10 overflow-hidden"
+          className={`pointer-events-none absolute inset-0 flex items-center justify-center -z-10 overflow-hidden ${shiftX}`}
         >
           {/* Broad subtle ambient atmosphere filling the top half */}
           <div className="w-[90%] max-w-7xl h-[70%] bg-[#B91C1C]/14 rounded-full blur-[100px] md:blur-[140px]" />
@@ -82,7 +88,7 @@ export function GiantTitle({
       )}
 
       {/* Main Content Layout */}
-      <div className="relative z-10 w-full flex flex-col items-center justify-center text-center overflow-visible">
+      <div className={`relative z-10 w-full flex flex-col items-center justify-center text-center overflow-visible transition-transform duration-300 ${shiftX}`}>
         {/* Giant Stretched Display Name */}
         <Component
           className={`font-['Anton',Impact,'League_Gothic','Oswald',sans-serif] font-black uppercase whitespace-nowrap leading-[0.76] ${tracking} ${fontSize} drop-shadow-[0_0_35px_rgba(185,28,28,0.3)] filter overflow-visible ${textClassName}`}
@@ -91,7 +97,7 @@ export function GiantTitle({
             className="inline-block transform origin-center transition-transform duration-300"
             style={{
               ...textGradientStyle,
-              transform: `scaleY(${stretch})`,
+              transform: `scale(${effectiveStretchX}, ${effectiveStretchY})`,
             }}
           >
             {name}

@@ -3,21 +3,36 @@ import GiantTitle from './GiantTitle'
 
 export default function Hero() {
   return (
-    <section className="home-hero relative w-full min-h-screen bg-[#0A0A0A] overflow-hidden flex flex-col justify-between">
-      {/* Top half: Giant display title stretched tall and sideways */}
-      <div className="w-full pt-6 sm:pt-10 flex-1 flex items-center justify-center">
+    <section className="home-hero relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between">
+      {/* Left side: me.png portrait */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 bottom-0 z-0 h-full w-auto flex items-end select-none"
+        aria-hidden="true"
+      >
+        <img
+          src="/images/me.png"
+          alt="Devang"
+          className="h-full w-auto max-w-[85vw] sm:max-w-[65vw] md:max-w-[50vw] lg:max-w-[45vw] object-cover sm:object-contain object-left-top sm:object-left-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
+      {/* Top half: Giant display title stretched tall and sideways, shifted slightly to the right */}
+      <div className="relative z-10 w-full pt-6 sm:pt-10 flex-1 flex items-center justify-center">
         <GiantTitle
           name="DEVANG"
           heightMode="topHalf"
           stretchY={1.42}
           stretchX={1.35}
+          shiftX="translate-x-6 sm:translate-x-12 md:translate-x-20 lg:translate-x-28 xl:translate-x-32"
         />
       </div>
 
       {/* Bottom Section: Manifesto at the bottom-left */}
       <div className="relative z-10 w-full px-6 sm:px-12 md:px-16 pb-10 sm:pb-14 pt-4 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6">
         {/* Bottom Left: Headline & Manifesto */}
-        <div className="max-w-xl flex items-start gap-4 sm:gap-5">
+        <div className="max-w-xl flex items-start gap-4 sm:gap-5 backdrop-blur-[2px] bg-black/40 sm:bg-black/30 p-3.5 sm:p-4 rounded-xl border border-white/5 sm:border-transparent">
           {/* Subtle crimson hairline accent bar */}
           <div
             aria-hidden="true"
