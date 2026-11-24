@@ -8,7 +8,6 @@ const SoundContext = createContext({
 export function SoundProvider({ children }) {
   const [enabled, setEnabled] = useState(true)
   const audioRefs = useRef({
-    bg: null,
     hoverPool: [],
     hoverIndex: 0,
     clickPool: [],
@@ -21,12 +20,6 @@ export function SoundProvider({ children }) {
     if (audioRefs.current.initialized) return
 
     try {
-      const bg = new Audio('/sound/ES_Rhythmania 2 - August Wilhelmsson.mp3')
-      bg.loop = true
-      bg.volume = 0.3
-      bg.preload = 'auto'
-      audioRefs.current.bg = bg
-
       // Pool for rapid hover sounds
       audioRefs.current.hoverPool = Array.from({ length: 4 }, () => {
         const a = new Audio('/sound/sound-hover.wav')
@@ -44,26 +37,16 @@ export function SoundProvider({ children }) {
       })
 
       audioRefs.current.initialized = true
-
-      if (enabled) {
-        bg.play().catch(() => {})
-      }
     } catch (e) {
       console.warn('Audio init error:', e)
     }
-  }, [enabled])
+  }, [])
 
   const toggle = useCallback(() => {
     setEnabled((prev) => {
       const next = !prev
       if (!audioRefs.current.initialized) {
         initAudio()
-      } else if (audioRefs.current.bg) {
-        if (next) {
-          audioRefs.current.bg.play().catch(() => {})
-        } else {
-          audioRefs.current.bg.pause()
-        }
       }
       return next
     })
@@ -114,22 +97,12 @@ export function SoundProvider({ children }) {
     document.addEventListener('mouseover', handlePointerOver, { passive: true })
     document.addEventListener('click', handleClick, { passive: true })
 
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        audioRefs.current.bg?.pause()
-      } else if (enabled) {
-        audioRefs.current.bg?.play().catch(() => {})
-      }
-    }
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-
     return () => {
       window.removeEventListener('pointerdown', handleFirstInteraction)
       document.removeEventListener('mouseover', handlePointerOver)
       document.removeEventListener('click', handleClick)
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
-  }, [initAudio, enabled, playHover, playClick])
+  }, [initAudio, playHover, playClick])
 
   return (
     <SoundContext.Provider value={{ enabled, toggle, playHover, playClick }}>
