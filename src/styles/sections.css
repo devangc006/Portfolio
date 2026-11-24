@@ -1826,14 +1826,27 @@
   line-height: 1;
   transition: color 0.3s ease-out;
 }
+.worked-at-row-period {
+  font-family: var(--font-heading);
+  letter-spacing: 0.0975rem;
+  text-transform: uppercase;
+  color: var(--text-grey-1);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: color 0.3s ease-out;
+  margin-right: 0.75rem;
+}
 .worked-at-row-mark {
   font-family: var(--font-mono);
   color: var(--primary-green-neon);
   flex-shrink: 0;
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1;
   transition: color 0.3s ease-out;
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .worked-at-row-button:hover .worked-at-row-bg:after {
   background: var(--primary-green-neon);
@@ -1849,7 +1862,11 @@
 .worked-at-row-button:hover .worked-at-row-mark,
 .worked-at-row[data-selected="true"] .worked-at-row-mark,
 .worked-at-row-button:hover .worked-at-row-index,
-.worked-at-row-button:hover .worked-at-row-role {
+.worked-at-row[data-selected="true"] .worked-at-row-index,
+.worked-at-row-button:hover .worked-at-row-role,
+.worked-at-row[data-selected="true"] .worked-at-row-role,
+.worked-at-row-button:hover .worked-at-row-period,
+.worked-at-row[data-selected="true"] .worked-at-row-period {
   color: var(--text-black, #070210);
 }
 .worked-at-row-panel {

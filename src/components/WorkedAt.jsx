@@ -1,82 +1,81 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useId, useState, useEffect } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import SharedGridLines from './SharedGridLines'
-import CompanyLogo from './CompanyLogos'
-import CardSwap, { Card } from './CardSwap'
 
 const COMPANIES = [
   {
-    key: 'opswat',
+    id: 'opswat',
     index: '01',
-    name: 'OPSWAT',
-    role: 'Sr. Product Designer',
-    period: '2025 - Present',
-    badge: 'Enterprise Cybersecurity',
+    title: 'OPSWAT',
+    subtitle: 'Sr. Product Designer',
+    year: '2025 - Present',
+    status: 'Enterprise Cybersecurity',
     description:
       'Led product design across My OPSWAT, Central Management, MetaDefender Drive, and Industrial Firewall, scaling the design system to keep UX consistent across the enterprise ecosystem.',
     image: '/images/work/case-study-opswat.webp',
   },
   {
-    key: 'skymavis',
+    id: 'skymavis',
     index: '02',
-    name: 'SkyMavis',
-    role: 'Product Designer',
-    period: '2024 - 2025',
-    badge: 'Web3 & GameFi Ecosystem',
+    title: 'SkyMavis',
+    subtitle: 'Product Designer',
+    year: '2024 - 2025',
+    status: 'Web3 & GameFi Ecosystem',
     description:
       'Worked closely across Mavis Market, Mavis Store, and Dev Journey — from competitive research and user interviews to UAT before release.',
     image: '/images/work/case-study-skymavis.webp',
   },
   {
-    key: 'firekamp',
+    id: 'firekamp',
     index: '03',
-    name: 'FireKamp',
-    role: 'Sr. Product Designer',
-    period: '2022 - 2024',
-    badge: 'Multi-Product Studio',
+    title: 'FireKamp',
+    subtitle: 'Sr. Product Designer',
+    year: '2022 - 2024',
+    status: 'Multi-Product Studio',
     description:
       'Delivered hi-fi visual design across varied product types (time management, weight-loss supplement, call recording, and more), ensuring live products matched the design.',
     image: '/images/work/web-firekamp.webp',
   },
   {
-    key: 'uptivistic',
+    id: 'uptivistic',
     index: '04',
-    name: 'Uptivistic',
-    role: 'Product Design Lead',
-    period: '2021 - 2022',
-    badge: 'Game Design & Visuals',
+    title: 'Uptivistic',
+    subtitle: 'Product Design Lead',
+    year: '2021 - 2022',
+    status: 'Game Design & Visuals',
     description:
       'Led a 4-person design team, turning Game Designer wireframes into hi-fi visual designs while working closely with developers to keep live builds on-spec.',
     image: '/images/work/exploration-almighty-boxxy.webp',
   },
   {
-    key: 'ilabs',
+    id: 'ilabs',
     index: '05',
-    name: 'ILABS',
-    role: 'Product Designer',
-    period: '2020 - 2021',
-    badge: 'Client Product Delivery',
+    title: 'ILABS',
+    subtitle: 'Product Designer',
+    year: '2020 - 2021',
+    status: 'Client Product Delivery',
     description:
       'Partnered directly with client-side POs/PMs across projects, balancing internal/marketing asset production with consistent design quality.',
     image: '/images/work/app-sortly.webp',
   },
   {
-    key: 'mpire',
+    id: 'mpire',
     index: '06',
-    name: 'Mpire',
-    role: 'UI/UX Designer',
-    period: '2019 - 2020',
-    badge: 'Digital & Brand Systems',
+    title: 'Mpire',
+    subtitle: 'UI/UX Designer',
+    year: '2019 - 2020',
+    status: 'Digital & Brand Systems',
     description:
       'Shaped the visual style and produced advertising/print assets for marketing campaigns, working closely with CDs and ADs.',
     image: '/images/work/web-tekcom.webp',
   },
   {
-    key: 'mingle',
+    id: 'mingle',
     index: '07',
-    name: 'Mingle',
-    role: 'UI UX Design Lead',
-    period: '2018 - 2019',
-    badge: 'Social & Consumer Mobile',
+    title: 'Mingle',
+    subtitle: 'UI UX Design Lead',
+    year: '2018 - 2019',
+    status: 'Social & Consumer Mobile',
     description:
       'Led a 13-person team (5 UX/UI + 8 graphic designers) while designing UX/UI end-to-end for the Mingle 2 and Just Say Hi Dating apps.',
     image: '/images/work/app-pcos-cysterhood.webp',
@@ -84,9 +83,10 @@ const COMPANIES = [
 ]
 
 export default function WorkedAt() {
+  const sectionId = useId()
+  const prefersReducedMotion = useReducedMotion()
+  const [activeId, setActiveId] = useState(COMPANIES[0].id)
   const [isMobile, setIsMobile] = useState(false)
-  const [activeCompanyIndex, setActiveCompanyIndex] = useState(0)
-  const cardSwapRef = useRef(null)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -97,153 +97,160 @@ export default function WorkedAt() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  const activeItem = COMPANIES.find((item) => item.id === activeId) || COMPANIES[0]
+
   return (
     <div className="worked-at-stage relative">
-      <section className="worked-at relative">
+      <section
+        id="experience"
+        aria-labelledby={sectionId}
+        className="worked-at relative flex flex-col items-center justify-center w-full min-h-[var(--rb-section-min-h,100vh)] overflow-hidden bg-[#0B0B12] px-4 py-20 sm:px-6 sm:py-24 lg:items-center lg:px-8 lg:py-28"
+      >
         <SharedGridLines hide={isMobile ? [2] : [2, 3, 4, 5]} variant="gradient" />
 
-        {/* Section Heading - Preserved exactly as requested */}
-        <div className="worked-at-heading">
+        {/* Section Heading */}
+        <div className="worked-at-heading mb-12 sm:mb-16 z-10">
           <span className="worked-at-badge font-heading">I’ve been</span>
-          <h2 className="worked-at-title font-heading uppercase text-4xl sm:text-6xl font-bold">
+          <h2
+            id={sectionId}
+            className="worked-at-title font-heading uppercase text-4xl sm:text-6xl font-bold"
+          >
             Worked At
           </h2>
         </div>
 
-        {/* Card Swap Content - ReactBits CardSwap (preset: calm, delay: 6000, speed: 0.6, bounce: 0, hoverSpread: 0) */}
-        <div className="w-full max-w-[900px] mx-auto mt-6 flex flex-col items-center">
-          {/* CardSwap Deck Container */}
-          <div className="w-full h-[460px] sm:h-[520px] md:h-[560px] flex items-center justify-center relative">
-            <CardSwap
-              ref={cardSwapRef}
-              width={isMobile ? 360 : 480}
-              height={isMobile ? 300 : 350}
-              cardDistance={isMobile ? 40 : 60}
-              verticalDistance={isMobile ? 50 : 70}
-              depth={90}
-              skewAmount={6}
-              visibleCards={4}
-              cardRadius={18}
-              delay={6000}
-              speed={0.6}
-              bounce={0}
-              hoverSpread={0}
-              autoplay={true}
-              pauseOnHover={true}
-              draggable={true}
-              onChange={(index) => setActiveCompanyIndex(index)}
-              className="w-full h-full"
-            >
-              {COMPANIES.map((company) => (
-                <Card
-                  key={company.key}
-                  className="p-4 sm:p-5 flex flex-col justify-between border border-white/10 select-none bg-[#12111D]"
-                >
-                  {/* Card Header: Logo/Index, Name, Role & Period */}
-                  <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/10">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className="font-mono text-xs font-bold text-[#9DF133] bg-[#2F480F]/50 border border-[#9DF133]/40 px-2 py-0.5 rounded shrink-0">
-                        {company.index}
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="font-heading font-bold text-base sm:text-lg text-white uppercase tracking-wide truncate">
-                          {company.name}
-                        </h3>
-                        <p className="font-sans text-xs text-[#9DF133] font-medium truncate">
-                          {company.role}
-                        </p>
-                      </div>
-                    </div>
+        {/* Showcase-1 Block Layout with Curtis Precision Tiles */}
+        <div className="mx-auto w-full max-w-[1400px] z-10 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_560px] xl:grid-cols-[1fr_600px] gap-6 lg:gap-12 xl:gap-16 items-start">
+            {/* Left Column: Curtis Precision Tiles */}
+            <div className="flex flex-col gap-[0.5625rem] w-full relative">
+              {COMPANIES.map((item, index) => {
+                const isActive = activeId === item.id
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 16 * !prefersReducedMotion }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: 0.04 * index,
+                    }}
+                    className="worked-at-row w-full"
+                    data-selected={isActive ? 'true' : 'false'}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setActiveId(item.id)}
+                      aria-pressed={isActive}
+                      data-sfx="true"
+                      className="worked-at-row-button select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                    >
+                      {/* Chamfered polygon background and border */}
+                      <span aria-hidden="true" className="worked-at-row-bg" />
 
-                    <span className="font-mono text-[10px] sm:text-[11px] text-white/70 uppercase tracking-wider shrink-0 bg-white/5 px-2.5 py-1 rounded border border-white/10">
-                      {company.period}
-                    </span>
-                  </div>
-
-                  {/* Card Media (Screenshot) with Dark Gradient Overlay & Details */}
-                  <div className="relative flex-1 rounded-xl overflow-hidden min-h-0 my-3 bg-black/60 border border-white/10">
-                    <img
-                      src={company.image}
-                      alt={company.name}
-                      draggable={false}
-                      className="pointer-events-none absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B12]/95 via-[#0B0B12]/45 to-black/10" />
-
-                    <div className="absolute bottom-0 inset-x-0 p-3 sm:p-4 text-left">
-                      <div className="h-6 sm:h-7 mb-2 flex items-center">
-                        <CompanyLogo
-                          name={company.key}
-                          className="max-h-5 sm:max-h-6 max-w-[140px] object-contain filter drop-shadow-[0_0_10px_rgba(157,241,51,0.35)]"
+                      {/* Smooth Gliding Active Pill with matching polygon cut */}
+                      {isActive && (
+                        <motion.span
+                          layoutId={`${sectionId}-active-background`}
+                          className="absolute inset-0 z-0 pointer-events-none"
+                          style={{
+                            clipPath:
+                              'polygon(0% 20px, 20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%)',
+                            background: '#ffffff',
+                          }}
+                          transition={
+                            prefersReducedMotion
+                              ? { duration: 0 }
+                              : { type: 'spring', stiffness: 300, damping: 30 }
+                          }
                         />
-                      </div>
-                      <p className="font-sans text-xs text-white/85 line-clamp-2 leading-relaxed">
-                        {company.description}
-                      </p>
-                    </div>
-                  </div>
+                      )}
 
-                  {/* Card Footer: Domain Badge & Status */}
-                  <div className="flex items-center justify-between pt-1 font-mono text-[11px]">
-                    <span className="text-white/50 tracking-wider uppercase truncate mr-2">
-                      {company.badge}
-                    </span>
-                    <span className="text-[#9DF133] flex items-center gap-1.5 font-semibold shrink-0">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#9DF133] animate-pulse" />
-                      ACTIVE SPEC
-                    </span>
-                  </div>
-                </Card>
-              ))}
-            </CardSwap>
-          </div>
+                      {/* Index Number */}
+                      <span className="worked-at-row-index">{item.index}</span>
 
-          {/* Interactive Controls & Company Indicators */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full max-w-[620px] mt-6 px-4">
-            {/* Quick Prev / Next Arrow Controls */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                data-sfx="true"
-                onClick={() => cardSwapRef.current?.prev()}
-                aria-label="Previous company card"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 hover:border-[#9DF133]/50 text-white hover:text-[#9DF133] flex items-center justify-center transition-all cursor-pointer font-mono text-sm"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                data-sfx="true"
-                onClick={() => cardSwapRef.current?.next()}
-                aria-label="Next company card"
-                className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 hover:border-[#9DF133]/50 text-white hover:text-[#9DF133] flex items-center justify-center transition-all cursor-pointer font-mono text-sm"
-              >
-                →
-              </button>
+                      {/* Title & Role Stack */}
+                      <span className="worked-at-row-text">
+                        <span className="worked-at-row-title">{item.title}</span>
+                        <span className="worked-at-row-role">{item.subtitle}</span>
+                      </span>
+
+                      {/* Period / Year */}
+                      <span className="worked-at-row-period hidden sm:inline-block">
+                        {item.year}
+                      </span>
+
+                      {/* Right Indicator Mark */}
+                      <span className="worked-at-row-mark" aria-hidden="true">
+                        {isActive ? '−' : '+'}
+                      </span>
+                    </button>
+                  </motion.div>
+                )
+              })}
             </div>
 
-            {/* Pagination Indicators */}
-            <div className="flex items-center gap-2">
-              {COMPANIES.map((company, idx) => (
-                <button
-                  key={company.key}
-                  type="button"
-                  data-sfx="true"
-                  onClick={() => cardSwapRef.current?.goTo(idx)}
-                  aria-label={`Jump to ${company.name}`}
-                  className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
-                    idx === activeCompanyIndex
-                      ? 'w-7 bg-[#9DF133] shadow-[0_0_8px_#9DF133]'
-                      : 'w-2 bg-white/20 hover:bg-white/40'
-                  }`}
-                />
-              ))}
-            </div>
+            {/* Right Column: Showcase Preview Card with Technical Crosshairs & Corner Plus Markers */}
+            <div className="relative order-first mb-6 sm:mb-8 h-[300px] sm:h-[400px] lg:order-0 lg:mb-0 lg:h-[530px] w-full overflow-hidden border border-white/10 bg-[#0B0B12] shadow-2xl">
+              {/* Technical CRT Rules */}
+              <span className="worked-at-crt-rule worked-at-crt-rule--t" aria-hidden="true" />
+              <span className="worked-at-crt-rule worked-at-crt-rule--b" aria-hidden="true" />
+              <span className="worked-at-crt-rule worked-at-crt-rule--l" aria-hidden="true" />
+              <span className="worked-at-crt-rule worked-at-crt-rule--r" aria-hidden="true" />
 
-            {/* Prompt hint */}
-            <span className="font-mono text-[10px] sm:text-[11px] text-white/40 uppercase tracking-widest text-center">
-              DRAG OR CLICK TO SWAP
-            </span>
+              {/* Corner Plus Signs */}
+              {['tl', 'tr', 'br', 'bl'].map((pos) => (
+                <svg
+                  key={pos}
+                  className={`worked-at-crt-plus worked-at-crt-plus--${pos}`}
+                  viewBox="0 0 8 8"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4.5 3.5H7V4.5H4.5V7H3.5V4.5H1V3.5H3.5V1H4.5V3.5Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ))}
+
+              {/* Showcase-1 Animated Slide-Up Image */}
+              <AnimatePresence initial={false}>
+                {activeItem && (
+                  <motion.img
+                    key={activeItem.id}
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    width={880}
+                    height={660}
+                    decoding="async"
+                    initial={prefersReducedMotion ? { opacity: 0 } : { y: '60%' }}
+                    animate={prefersReducedMotion ? { opacity: 1 } : { y: 0 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
+              </AnimatePresence>
+
+              {/* Dark Gradient Overlay & Technical Details */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B12]/95 via-[#0B0B12]/40 to-transparent pointer-events-none z-10" />
+
+              <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 text-left z-20 pointer-events-none">
+                <div className="flex items-center justify-between gap-3 mb-2">
+                  <span className="font-mono text-xs font-bold text-[#9DF133] bg-[#2F480F]/70 border border-[#9DF133]/40 px-2.5 py-0.5 rounded uppercase tracking-wider">
+                    {activeItem.year}
+                  </span>
+                  <span className="font-heading text-xs font-semibold text-white/80 uppercase tracking-widest">
+                    {activeItem.status}
+                  </span>
+                </div>
+                <p className="font-sans text-xs sm:text-sm text-white/90 leading-relaxed line-clamp-2">
+                  {activeItem.description}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
