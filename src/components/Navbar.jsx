@@ -4,10 +4,10 @@ import { useMenu } from '../context/MenuContext'
 
 const NAV_ITEMS = [
   { id: '2', eyebrow: '01', label: 'About', href: '#about' },
-  { id: '3', eyebrow: '02', label: 'Work', href: '#work' },
+  { id: '3', eyebrow: '02', label: 'Work', href: '/works' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ onNavigate }) {
   const containerRef = useRef(null)
   const { isOpen, toggle, close } = useMenu()
   const isFirstRender = useRef(true)
@@ -162,7 +162,10 @@ export default function Navbar() {
 
   const handleLinkClick = useCallback((e, href) => {
     close()
-    if (href.startsWith('#')) {
+    if (href.startsWith('/')) {
+      e.preventDefault()
+      onNavigate?.(href)
+    } else if (href.startsWith('#')) {
       e.preventDefault()
       if (href === '#' || href === '#top') {
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -173,7 +176,7 @@ export default function Navbar() {
         }
       }
     }
-  }, [close])
+  }, [close, onNavigate])
 
   return (
     <div ref={containerRef}>
@@ -184,8 +187,8 @@ export default function Navbar() {
             <nav className="nav-row">
               {/* Brand Logo */}
               <a
-                href="#"
-                onClick={(e) => handleLinkClick(e, '#')}
+                href="/"
+                onClick={(e) => handleLinkClick(e, '/')}
                 aria-label="DEVANG C"
                 className="nav-logo-row"
               >

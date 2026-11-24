@@ -16,11 +16,33 @@ import WorkedAt from './components/WorkedAt'
 import Footer from './components/Footer'
 import CaseStudyModal from './components/CaseStudyModal'
 import WorkGalleryModal from './components/WorkGalleryModal'
+import WorksPage from './components/WorksPage'
 
 function PortfolioMain() {
   const [activeCaseStudy, setActiveCaseStudy] = useState(null)
   const [galleryOpen, setGalleryOpen] = useState(false)
+  const [pathname, setPathname] = useState(
+    window.location.pathname.replace(/\/+$/, '') || '/'
+  )
   const { setSurfaceTone } = useSurfaceTone()
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPathname(window.location.pathname.replace(/\/+$/, '') || '/')
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  const navigate = (path) => {
+    const nextPath = path.replace(/\/+$/, '') || '/'
+    if (nextPath === pathname) return
+
+    window.history.pushState({}, '', nextPath)
+    setPathname(nextPath)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   // Initialize Lenis smooth scroll
   useEffect(() => {
@@ -77,22 +99,29 @@ function PortfolioMain() {
         <GyroscopeCursor />
 
         {/* Sticky Navbar */}
-        <Navbar />
+        <Navbar onNavigate={navigate} />
 
         {/* Slide-out Menu Overlay */}
         <MenuOverlay />
 
         {/* Main Content Sections */}
-        <main>
-          <Hero />
-          <StatStage />
-          <SelectedWork
-            onOpenGallery={() => setGalleryOpen(true)}
-            onOpenCaseStudy={(id) => setActiveCaseStudy(id)}
-          />
-          <WorkedAt />
-          <Footer />
-        </main>
+        {pathname === '/works' ? (
+          <main>
+            <WorksPage onOpenCaseStudy={(id) => setActiveCaseStudy(id)} />
+            <Footer />
+          </main>
+        ) : (
+          <main>
+            <Hero />
+            <StatStage />
+            <SelectedWork
+              onOpenGallery={() => setGalleryOpen(true)}
+              onOpenCaseStudy={(id) => setActiveCaseStudy(id)}
+            />
+            <WorkedAt />
+            <Footer />
+          </main>
+        )}
 
         {/* Modals */}
         <CaseStudyModal
