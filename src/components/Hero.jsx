@@ -18,14 +18,14 @@ export default function Hero() {
         />
       </div>
 
-      {/* Top half: Giant display title stretched tall and sideways, shifted slightly to the right */}
+      {/* Top half: Giant display title stretched tall and sideways, shifted slightly to the right on desktop */}
       <div className="relative z-10 w-full pt-6 sm:pt-10 flex-1 flex items-center justify-center">
         <GiantTitle
           name="DEVANG"
           heightMode="topHalf"
           stretchY={1.42}
           stretchX={1.35}
-          shiftX="translate-x-6 sm:translate-x-12 md:translate-x-20 lg:translate-x-28 xl:translate-x-32"
+          shiftX="translate-x-0 sm:translate-x-12 md:translate-x-20 lg:translate-x-28 xl:translate-x-32"
         />
       </div>
 

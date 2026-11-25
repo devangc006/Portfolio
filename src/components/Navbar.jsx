@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react'
 import gsap from 'gsap'
 import { useMenu } from '../context/MenuContext'
+import { useSurfaceTone } from '../context/SurfaceToneContext'
 
 const NAV_ITEMS = [
   { id: '2', eyebrow: '01', label: 'About', href: '#hero' },
@@ -10,6 +11,7 @@ const NAV_ITEMS = [
 export default function Navbar({ onNavigate }) {
   const containerRef = useRef(null)
   const { isOpen, toggle, close } = useMenu()
+  const { surfaceTone } = useSurfaceTone()
   const isFirstRender = useRef(true)
 
   // ESC key handler
@@ -204,10 +206,12 @@ export default function Navbar({ onNavigate }) {
     }
   }, [close, onNavigate])
 
+  const activeTone = isOpen ? 'dark' : surfaceTone
+
   return (
     <div ref={containerRef}>
       {/* 1. Kinetic Top Navigation Bar */}
-      <div className="site-header-wrapper">
+      <div className="site-header-wrapper" data-tone={activeTone}>
         <header className="header">
           <div className="nav-container">
             <nav className="nav-row">

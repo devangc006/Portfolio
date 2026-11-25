@@ -560,7 +560,7 @@ export default function Footer() {
         setIntersecting(entry.isIntersecting)
         if (entry.isIntersecting) setInView(true)
       },
-      { threshold: 0.1 }
+      { threshold: 0.01, rootMargin: '50px' }
     )
     obs.observe(el)
     return () => obs.disconnect()

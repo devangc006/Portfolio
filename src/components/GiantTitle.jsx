@@ -34,7 +34,7 @@ export function GiantTitle({
   stretchX = 1,
   shiftX = '',
   tracking = 'tracking-[-0.055em]',
-  fontSize = 'text-[clamp(4.5rem,min(18vw,30vh),24rem)]',
+  fontSize = 'text-[clamp(2.75rem,13.8vw,24rem)] sm:text-[clamp(4.5rem,min(18vw,30vh),24rem)]',
   heightMode = 'topHalf',
   as: Component = 'h1',
   ambientGlow = true,
@@ -94,10 +94,13 @@ export function GiantTitle({
           className={`font-['Anton',Impact,'League_Gothic','Oswald',sans-serif] font-black uppercase whitespace-nowrap leading-[0.76] ${tracking} ${fontSize} drop-shadow-[0_0_35px_rgba(185,28,28,0.3)] filter overflow-visible ${textClassName}`}
         >
           <span
-            className="inline-block transform origin-center transition-transform duration-300"
+            className="giant-title-text inline-block transform origin-center transition-transform duration-300"
             style={{
               ...textGradientStyle,
-              transform: `scale(${effectiveStretchX}, ${effectiveStretchY})`,
+              '--mobile-scale-x': typeof effectiveStretchX === 'number' ? Math.min(effectiveStretchX, 1.08) : 1.08,
+              '--desktop-scale-x': effectiveStretchX,
+              '--mobile-scale-y': typeof effectiveStretchY === 'number' ? Math.min(effectiveStretchY, 1.38) : 1.38,
+              '--desktop-scale-y': effectiveStretchY,
             }}
           >
             {name}

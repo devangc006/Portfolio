@@ -65,28 +65,32 @@ function PortfolioMain() {
 
   // Detect green surface sections to update navbar theme tone
   useEffect(() => {
-    const greenSections = document.querySelectorAll('[data-surface="green"]')
-    if (!greenSections.length) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let hasGreen = false
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.boundingClientRect.top <= 80) {
-            hasGreen = true
-          }
-        })
-        setSurfaceTone(hasGreen ? 'green' : 'dark')
-      },
-      {
-        rootMargin: '-80px 0px -70% 0px',
-        threshold: [0, 0.1, 0.5],
+    const checkTone = () => {
+      const greenSections = document.querySelectorAll('[data-surface="green"]')
+      if (!greenSections.length) {
+        setSurfaceTone('dark')
+        return
       }
-    )
 
-    greenSections.forEach((sec) => observer.observe(sec))
-    return () => observer.disconnect()
-  }, [setSurfaceTone])
+      let hasGreen = false
+      const navY = 50
+      greenSections.forEach((sec) => {
+        const rect = sec.getBoundingClientRect()
+        if (rect.top <= navY && rect.bottom >= navY) {
+          hasGreen = true
+        }
+      })
+      setSurfaceTone(hasGreen ? 'green' : 'dark')
+    }
+
+    checkTone()
+    window.addEventListener('scroll', checkTone, { passive: true })
+    window.addEventListener('resize', checkTone, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', checkTone)
+      window.removeEventListener('resize', checkTone)
+    }
+  }, [setSurfaceTone, pathname])
 
   return (
     <div id="scroll-container" className="relative min-h-screen bg-[var(--background-bg-0)] text-[var(--foreground)] selection:bg-[var(--primary-green-neon)] selection:text-black">

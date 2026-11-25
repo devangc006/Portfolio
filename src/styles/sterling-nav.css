@@ -84,6 +84,7 @@
   font-weight: 700;
   font-family: var(--font-rajdhani, 'Rajdhani', sans-serif);
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .nav-row__right {
@@ -104,7 +105,18 @@
   font-size: 1.125rem;
   cursor: pointer;
   user-select: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
+}
+
+/* Light / Turquoise Surface Theme Contrast */
+[data-tone="green"] .logo-text,
+[data-tone="green"] .nav-close-btn {
+  color: #070210 !important;
+}
+
+[data-tone="green"] .nav-logo-row svg path {
+  fill: #070210 !important;
+  transition: fill 0.3s ease;
 }
 
 .nav-close-btn:hover {

@@ -297,6 +297,21 @@ body {
 }
 
 /* Utilities */
+.giant-title-text {
+  transform: scale(var(--mobile-scale-x, 1.08), var(--mobile-scale-y, 1.38));
+}
+@media (min-width: 640px) {
+  .giant-title-text {
+    transform: scale(var(--desktop-scale-x, 1.35), var(--desktop-scale-y, 1.42));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .stat-stage .shared-v-line:nth-child(2) {
+    display: none !important;
+  }
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

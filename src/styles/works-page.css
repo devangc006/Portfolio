@@ -329,8 +329,8 @@
 
 @media (max-width: 600px) {
   .works-page {
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
   }
 
   .works-page__header {
@@ -345,16 +345,19 @@
   }
 
   .works-page__showcase {
-    gap: 1.6rem 0.7rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem 0;
   }
 
   .works-card__image-wrap {
-    aspect-ratio: 0.86;
+    aspect-ratio: 1.35;
   }
 
   .works-card__details {
-    flex-direction: column;
-    gap: 0.35rem;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 }
 

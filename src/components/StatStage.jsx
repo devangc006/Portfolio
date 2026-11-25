@@ -53,6 +53,16 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
   const stageRef = useRef(null)
   const reelRef = useRef(null)
   const [animated, setAnimated] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const el = stageRef.current
@@ -95,7 +105,7 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
       data-surface="green"
       data-transition="idle"
     >
-      <SharedGridLines fade={[2, 3, 4, 5]} />
+      <SharedGridLines hide={isMobile ? [2] : []} fade={[2, 3, 4, 5]} />
 
       <div className="relative z-10 w-full min-h-[90vh] py-16 sm:py-24 flex flex-col justify-center">
         {/* Section Header */}
