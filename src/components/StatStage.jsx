@@ -562,26 +562,25 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
             </div>
           </div>
 
-          {/* 3D Vertical Reel Showcase Card */}
+          {/* 3D Vertical Reel Showcase Container with Playground Tile Styling */}
           <div
-            className="relative w-full rounded-2xl overflow-hidden border border-[rgba(47,72,15,0.25)] bg-[#070210]/15 shadow-2xl backdrop-blur-md"
+            className="relative p-[1.5px] rounded-2xl overflow-hidden"
             style={{
-              clipPath:
-                'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))',
+              clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
             }}
           >
-            {/* Top Bar HUD / Telemetry info */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-[rgba(47,72,15,0.2)] bg-[rgba(113,201,206,0.2)] font-mono text-[11px] text-[#1a3810]">
-              <div className="flex items-center gap-3">
-                <span className="hidden sm:inline-block opacity-75">PERSPECTIVE CURVATURE • MOTION BLUR • SPRING MOMENTUM</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-[#20401b]">DRAG / SCROLL TO ROTATE • CLICK CARD TO OPEN</span>
-              </div>
-            </div>
-
-            {/* Vertical Reel Canvas */}
-            <div className="relative h-[480px] sm:h-[540px] lg:h-[620px] w-full">
+            <div
+              className="absolute inset-0 bg-[rgba(47,72,15,0.22)]"
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
+              }}
+            />
+            <div
+              className="relative w-full h-[480px] sm:h-[540px] lg:h-[620px] bg-[rgba(113,201,206,0.35)] backdrop-blur-sm overflow-hidden"
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))',
+              }}
+            >
               <VerticalReel
                 ref={reelRef}
                 preset="ring"
