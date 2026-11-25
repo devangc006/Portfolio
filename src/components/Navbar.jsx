@@ -59,39 +59,52 @@ export default function Navbar({ onNavigate }) {
 
       const tl = gsap.timeline()
 
+      const isMobile = window.innerWidth < 768
+
       if (isOpen) {
         navOverlay?.setAttribute('data-nav', 'open')
         tl.set(navOverlay, { display: 'block' })
           .set(menuContent, { xPercent: 0 }, '<')
+          .set(navLinks, { yPercent: isMobile ? 80 : 120, rotate: 0, opacity: 0 }, '<')
           .fromTo(btnTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.1, duration: 0.4, ease: 'power2.inOut' })
           .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, '<')
           .fromTo(
             backdropLayers,
             { xPercent: 101 },
-            { xPercent: 0, stagger: 0.12, duration: 0.575, ease: 'power3.out' },
+            { xPercent: 0, stagger: 0.12, duration: 0.55, ease: 'power3.out' },
             '<'
           )
           .fromTo(
             navLinks,
-            { yPercent: 140, rotate: 8, opacity: 0 },
-            { yPercent: 0, rotate: 0, opacity: 1, stagger: 0.05, duration: 0.5, ease: 'power3.out' },
-            '<+=0.3'
+            { yPercent: isMobile ? 80 : 120, rotate: isMobile ? 0 : 6, opacity: 0 },
+            {
+              yPercent: 0,
+              rotate: 0,
+              opacity: 1,
+              stagger: 0.08,
+              duration: 0.5,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+            },
+            '<+=0.35'
           )
 
         if (fadeItems.length) {
-          tl.fromTo(
-            fadeItems,
-            { autoAlpha: 0, yPercent: 40 },
-            { autoAlpha: 1, yPercent: 0, stagger: 0.04, duration: 0.4, clearProps: 'all', ease: 'power2.out' },
-            '<+=0.15'
-          )
+          tl.set(fadeItems, { autoAlpha: 0, yPercent: 30 }, '<')
+            .fromTo(
+              fadeItems,
+              { autoAlpha: 0, yPercent: 30 },
+              { autoAlpha: 1, yPercent: 0, stagger: 0.04, duration: 0.4, clearProps: 'all', ease: 'power2.out' },
+              '<+=0.15'
+            )
         }
       } else {
         navOverlay?.setAttribute('data-nav', 'closed')
         tl.to(overlay, { autoAlpha: 0, duration: 0.25 })
-          .to(menuContent, { xPercent: 110, duration: 0.4, ease: 'power3.in' }, '<')
-          .to(btnTexts, { yPercent: 0, duration: 0.35, ease: 'power2.inOut' }, '<')
+          .to(menuContent, { xPercent: 110, duration: 0.35, ease: 'power3.in' }, '<')
+          .to(btnTexts, { yPercent: 0, duration: 0.3, ease: 'power2.inOut' }, '<')
           .set(navOverlay, { display: 'none' })
+          .set(navLinks, { opacity: 0, yPercent: 80, rotate: 0 })
       }
     }, containerRef)
 
@@ -101,6 +114,8 @@ export default function Navbar({ onNavigate }) {
   // Kinetic SVG Background Shapes on Link Hover
   useEffect(() => {
     if (!containerRef.current) return
+    // Do not attach hover shapes on touch/mobile devices to avoid sticky states
+    if (window.matchMedia('(hover: none)').matches || window.innerWidth < 768) return
 
     const ctx = gsap.context(() => {
       const items = containerRef.current.querySelectorAll('.menu-list-item[data-shape]')
@@ -190,19 +205,21 @@ export default function Navbar({ onNavigate }) {
         return
       }
 
-      if (href === '#' || href === '#top' || href === '#hero' || href === '#about') {
-        const heroEl = document.getElementById('hero') || document.querySelector('.home-hero')
-        if (heroEl) {
-          heroEl.scrollIntoView({ behavior: 'smooth' })
+      setTimeout(() => {
+        if (href === '#' || href === '#top' || href === '#hero' || href === '#about') {
+          const heroEl = document.getElementById('hero') || document.querySelector('.home-hero')
+          if (heroEl) {
+            heroEl.scrollIntoView({ behavior: 'smooth' })
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }
         } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' })
+          const target = document.querySelector(href)
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' })
+          }
         }
-      } else {
-        const target = document.querySelector(href)
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' })
-        }
-      }
+      }, 50)
     }
   }, [close, onNavigate])
 

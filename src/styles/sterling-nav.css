@@ -164,6 +164,13 @@
   display: none;
 }
 
+/* Guard: ensure drawer contents are hidden whenever drawer is closed */
+.nav-overlay-wrapper[data-nav="closed"] .nav-link,
+.nav-overlay-wrapper[data-nav="closed"] [data-menu-fade] {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .overlay {
   z-index: 0;
   position: absolute;
@@ -306,20 +313,23 @@
 .nav-link-text {
   position: relative;
   z-index: 2;
+  margin: 0;
   text-transform: uppercase;
   font-family: 'PP Neue Corp Tight', var(--font-rajdhani, 'Rajdhani'), Impact, sans-serif;
   font-size: clamp(3rem, 7vw, 5.25rem);
   font-weight: 800;
-  line-height: 0.82;
+  line-height: 0.85;
   letter-spacing: 0.02em;
-  text-shadow: 0px 1em 0px #ffffff;
-  transition: transform 0.55s var(--cubic-default);
+  text-shadow: 0px 1em 0px transparent;
+  transition: transform 0.55s var(--cubic-default), text-shadow 0.55s var(--cubic-default);
 }
 
-.nav-link:hover .nav-link-text {
-  transition-delay: 0.08s;
-  transform: translateY(-1em);
-  text-shadow: 0px 1em 0px #000000;
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover .nav-link-text {
+    transition-delay: 0.08s;
+    transform: translateY(-1em);
+    text-shadow: 0px 1em 0px #000000;
+  }
 }
 
 .nav-link-hover-bg {
@@ -435,8 +445,33 @@
     border-bottom-left-radius: 0;
   }
 
+  .nav-link {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
   .nav-link-text {
     font-size: clamp(2.5rem, 12vw, 3.75rem);
+    line-height: 1;
+    text-shadow: none !important;
+    transform: none !important;
+  }
+
+  .nav-link:hover .nav-link-text {
+    transform: none !important;
+    text-shadow: none !important;
+  }
+
+  .nav-link:hover {
+    color: #ffffff !important;
+  }
+
+  .nav-link:hover .eyebrow {
+    color: var(--color-primary) !important;
+  }
+
+  .nav-link-hover-bg {
+    display: none !important;
   }
 
   .socials-row {
