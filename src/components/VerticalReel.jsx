@@ -67,22 +67,6 @@ export const DEFAULT_ITEMS = [
     subtitle: 'Social media for various clubs',
     href: '#convergex',
   },
-  {
-    id: 'itrackbites',
-    src: '/images/work/iiit-hyd.jpg',
-    alt: 'iTrackBites App',
-    title: 'iTrackBites',
-    subtitle: 'Health & Nutrition Tracking Mobile App',
-    href: 'https://healthiapp.com/',
-  },
-  {
-    id: 'outdoor-gps',
-    src: '/images/work/iitm-ptf.png',
-    alt: 'Outdoor GPS App',
-    title: 'Outdoor GPS',
-    subtitle: 'Offline OS Maps & Mountain Navigation',
-    href: 'https://apps.apple.com/us/app/outdoors-gps-offline-os-maps/id365688106?l=vi',
-  },
 ]
 
 export const REEL_PRESETS = {
