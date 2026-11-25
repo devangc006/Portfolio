@@ -3,83 +3,51 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import SharedGridLines from './SharedGridLines'
 
 const COMPANIES = [
-  {
-    id: 'opswat',
+    {
+    id: 'iitm',
     index: '01',
-    title: 'OPSWAT',
-    subtitle: 'Sr. Product Designer',
-    year: '2025 - Present',
-    status: 'Enterprise Cybersecurity',
-    description:
-      'Led product design across My OPSWAT, Central Management, MetaDefender Drive, and Industrial Firewall, scaling the design system to keep UX consistent across the enterprise ecosystem.',
-    image: '/images/work/case-study-opswat.webp',
-  },
-  {
-    id: 'skymavis',
-    index: '02',
-    title: 'SkyMavis',
-    subtitle: 'Product Designer',
-    year: '2024 - 2025',
-    status: 'Web3 & GameFi Ecosystem',
+    title: 'IITM Pravartak',
+    subtitle: 'Project based Internship',
+    year: '2026',
+    status: 'Database Engineering',
     description:
       'Worked closely across Mavis Market, Mavis Store, and Dev Journey — from competitive research and user interviews to UAT before release.',
     image: '/images/work/case-study-skymavis.webp',
   },
   {
-    id: 'firekamp',
+    id: 'iiit-h',
+    index: '02',
+    title: 'IIIT Hyderabad',
+    subtitle: 'Summer of AI Internship',
+    year: '2025',
+    status: 'Viswam.AI',
+    description:
+      'Studied Computer Science and Engineering at IIIT Hyderabad, gaining a strong foundation in software development and computer science principles.',
+    image: '/images/work/case-study-iiit-hyderabad.webp',
+  },
+  {
+    id: 'machinser',
     index: '03',
-    title: 'FireKamp',
-    subtitle: 'Sr. Product Designer',
-    year: '2022 - 2024',
-    status: 'Multi-Product Studio',
+    title: 'Machinser technologies',
+    subtitle: 'Odoo ERP Internship',
+    year: '2026',
+    status: 'Odoo ERP',
     description:
       'Delivered hi-fi visual design across varied product types (time management, weight-loss supplement, call recording, and more), ensuring live products matched the design.',
     image: '/images/work/web-firekamp.webp',
   },
   {
-    id: 'uptivistic',
+    id: 'aws-sbg',
     index: '04',
-    title: 'Uptivistic',
-    subtitle: 'Product Design Lead',
-    year: '2021 - 2022',
+    title: 'AWS SBG Execom',
+    subtitle: 'Tech Head',
+    year: '2026 - Present',
     status: 'Game Design & Visuals',
     description:
       'Led a 4-person design team, turning Game Designer wireframes into hi-fi visual designs while working closely with developers to keep live builds on-spec.',
     image: '/images/work/exploration-almighty-boxxy.webp',
   },
-  {
-    id: 'ilabs',
-    index: '05',
-    title: 'ILABS',
-    subtitle: 'Product Designer',
-    year: '2020 - 2021',
-    status: 'Client Product Delivery',
-    description:
-      'Partnered directly with client-side POs/PMs across projects, balancing internal/marketing asset production with consistent design quality.',
-    image: '/images/work/app-sortly.webp',
-  },
-  {
-    id: 'mpire',
-    index: '06',
-    title: 'Mpire',
-    subtitle: 'UI/UX Designer',
-    year: '2019 - 2020',
-    status: 'Digital & Brand Systems',
-    description:
-      'Shaped the visual style and produced advertising/print assets for marketing campaigns, working closely with CDs and ADs.',
-    image: '/images/work/web-tekcom.webp',
-  },
-  {
-    id: 'mingle',
-    index: '07',
-    title: 'Mingle',
-    subtitle: 'UI UX Design Lead',
-    year: '2018 - 2019',
-    status: 'Social & Consumer Mobile',
-    description:
-      'Led a 13-person team (5 UX/UI + 8 graphic designers) while designing UX/UI end-to-end for the Mingle 2 and Just Say Hi Dating apps.',
-    image: '/images/work/app-pcos-cysterhood.webp',
-  },
+
 ]
 
 export default function WorkedAt() {

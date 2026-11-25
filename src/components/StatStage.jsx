@@ -457,7 +457,7 @@ export default function StatStage() {
               </div>
             </div>
 
-            {/* Box 8: Companies (7+) */}
+            {/* Box 8: Experience (3+) */}
             <div
               data-sfx="true"
               className="relative p-[1.5px] transition-all duration-300 group hover:-translate-y-1.5 cursor-pointer select-none"
@@ -482,7 +482,7 @@ export default function StatStage() {
                     [METRIC // 03]
                   </span>
                   <span className="font-heading text-xs font-bold uppercase tracking-widest text-[#1a3810] group-hover:text-[#9df133] transition-colors duration-300">
-                    COMPANIES
+                    Experience
                   </span>
                   <span
                     aria-hidden="true"
@@ -492,7 +492,7 @@ export default function StatStage() {
                 </div>
 
                 <div className="my-2">
-                  <OdometerValue value={7} suffix="+" animated={animated} />
+                  <OdometerValue value={3} suffix="+" animated={animated} />
                 </div>
 
                 <div className="pt-3 border-t border-[rgba(47,72,15,0.15)] group-hover:border-white/10 flex items-center justify-between text-xs font-mono text-[#29521e] group-hover:text-white/60 transition-colors duration-300">
