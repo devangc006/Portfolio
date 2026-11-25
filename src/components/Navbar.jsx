@@ -240,19 +240,26 @@ export default function Navbar({ onNavigate }) {
                 className="nav-logo-row"
               >
                 <svg
-                  width="16"
-                  height="14"
-                  viewBox="0 0 14 12"
+                  width="20"
+                  height="17"
+                  viewBox="0 0 26 22"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="shrink-0"
+                  className="shrink-0 transition-transform duration-300 group-hover:scale-105"
+                  aria-hidden="true"
                 >
                   <path
-                    d="M10.1414 5.38525L9.14001 5.90097L7 2.23234L1.92813 10.9269H6.24551V12H0L7 0L10.1414 5.38525ZM14 12H7.75449V10.9269H12.0719L9.8945 7.19439L10.8959 6.67867L14 12Z"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M 2 2 H 11.5 C 15.8 2 18.5 5.2 18.5 11 C 18.5 16.8 15.8 20 11.5 20 H 2 V 2 Z M 5.2 5.2 V 16.8 H 11 C 13.5 16.8 15.2 14.5 15.2 11 C 15.2 7.5 13.5 5.2 11 5.2 H 5.2 Z"
                     fill="var(--color-primary)"
                   />
                   <path
-                    d="M7.00008 5.1018L9.77335 9.77725H4.22681L7.00008 5.1018Z"
+                    d="M 9.5 7.5 L 10.4 10.1 L 13 11 L 10.4 11.9 L 9.5 14.5 L 8.6 11.9 L 6 11 L 8.6 10.1 Z"
+                    fill="var(--color-primary)"
+                  />
+                  <path
+                    d="M 24 2 H 17.5 L 14.8 5.2 H 21.2 C 21.8 5.2 22.2 5.6 22.2 6.2 V 7.2 L 24 7.2 V 2 Z M 16.2 5.2 C 12.8 6 10.8 8.2 10.8 11 C 10.8 13.8 12.8 16 16.2 16.8 L 15.2 20 C 10.5 19 7.8 15.5 7.8 11 C 7.8 6.5 10.5 3 15.2 2 L 16.2 5.2 Z M 24 20 H 17.5 L 14.8 16.8 H 21.2 C 21.8 16.8 22.2 16.4 22.2 15.8 V 14.8 L 24 14.8 V 20 Z"
                     fill="var(--color-primary)"
                   />
                 </svg>
