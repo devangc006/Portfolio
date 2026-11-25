@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import SharedGridLines from './SharedGridLines'
+import VerticalReel, { DEFAULT_ITEMS } from './VerticalReel'
 
 function OdometerDigit({ targetDigit, animated, delay = 0 }) {
   const target = parseInt(targetDigit, 10)
@@ -48,8 +49,9 @@ function OdometerValue({ value, suffix = '+', animated }) {
   )
 }
 
-export default function StatStage() {
+export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }) {
   const stageRef = useRef(null)
+  const reelRef = useRef(null)
   const [animated, setAnimated] = useState(false)
 
   useEffect(() => {
@@ -69,6 +71,21 @@ export default function StatStage() {
     return () => observer.disconnect()
   }, [])
 
+  const handleSelect = (item) => {
+    if (item.id === 'skymavis' || item.id === 'opswat') {
+      if (onOpenCaseStudy) {
+        onOpenCaseStudy(item.id)
+        return
+      }
+    }
+    if (item.href && item.href.startsWith('http')) {
+      window.open(item.href, '_blank', 'noopener,noreferrer')
+    } else if (item.href && item.href.startsWith('#')) {
+      const el = document.querySelector(item.href)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <section
       ref={stageRef}
@@ -80,12 +97,22 @@ export default function StatStage() {
 
       <div className="relative z-10 w-full min-h-[90vh] py-16 sm:py-24 flex flex-col justify-center">
         {/* Section Header */}
-        <div className="w-full max-w-[1400px] mx-auto mb-10 sm:mb-14 px-4 sm:px-8">
-          <div className="border-b border-[rgba(47,72,15,0.2)] pb-6">
-            <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-[#070210] leading-none">
+        <div className="w-full max-w-[1400px] mx-auto mb-8 sm:mb-10 px-4 sm:px-8 text-left">
+          <div className="border-b border-[rgba(47,72,15,0.2)] pb-6 text-left">
+            <h2 className="font-heading text-4xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-[#070210] leading-none text-left">
               Playground of Code
             </h2>
           </div>
+        </div>
+
+        {/* Section Subhead: Telemetry & Tech Grid */}
+        <div className="w-full max-w-[1400px] mx-auto mb-6 px-4 sm:px-8 flex items-center justify-between">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#2F480F] font-bold">
+            CORE CAPABILITIES & TECH STACK
+          </span>
+          <span className="font-mono text-xs text-[#20401b] font-medium hidden sm:inline-block">
+            8 COMPONENT METRICS ACTIVE
+          </span>
         </div>
 
         {/* Bento Grid of Tool & Stat Boxes */}
@@ -500,6 +527,68 @@ export default function StatStage() {
                   <span className="text-[#2F480F] group-hover:text-[#9DF133] tracking-widest">■■■</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3D Ring Work Showcase (Positioned below Core Capabilities & Tech Stack) */}
+        <div id="work" className="w-full max-w-[1400px] mx-auto mt-16 sm:mt-24 px-4 sm:px-8">
+          <div className="border-b border-[rgba(47,72,15,0.2)] pb-4 mb-6 flex items-end justify-between gap-4">
+            {/* Archive Link to Works Page */}
+            <div>
+              <a
+                href="/works"
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (onNavigate) {
+                    onNavigate('/works')
+                  } else {
+                    window.location.href = '/works'
+                  }
+                }}
+                className="h-9 px-4 rounded-lg bg-[#070210] text-[#9DF133] hover:bg-[#1a3810] hover:text-white border border-[#2F480F]/40 font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5 select-none cursor-pointer"
+                data-sfx="true"
+              >
+                <span>Archive</span>
+                <span className="text-[10px]">↗</span>
+              </a>
+            </div>
+
+            {/* Selected Works Heading (Right-aligned) */}
+            <div className="text-right flex flex-col items-end">
+              <h3 className="font-heading text-3xl sm:text-5xl font-bold uppercase tracking-tight text-[#070210] leading-none text-right">
+                Selected Works
+              </h3>
+            </div>
+          </div>
+
+          {/* 3D Vertical Reel Showcase Card */}
+          <div
+            className="relative w-full rounded-2xl overflow-hidden border border-[rgba(47,72,15,0.25)] bg-[#070210]/15 shadow-2xl backdrop-blur-md"
+            style={{
+              clipPath:
+                'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))',
+            }}
+          >
+            {/* Top Bar HUD / Telemetry info */}
+            <div className="flex items-center justify-between px-5 py-3 border-b border-[rgba(47,72,15,0.2)] bg-[rgba(113,201,206,0.2)] font-mono text-[11px] text-[#1a3810]">
+              <div className="flex items-center gap-3">
+                <span className="hidden sm:inline-block opacity-75">PERSPECTIVE CURVATURE • MOTION BLUR • SPRING MOMENTUM</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-[#20401b]">DRAG / SCROLL TO ROTATE • CLICK CARD TO OPEN</span>
+              </div>
+            </div>
+
+            {/* Vertical Reel Canvas */}
+            <div className="relative h-[480px] sm:h-[540px] lg:h-[620px] w-full">
+              <VerticalReel
+                ref={reelRef}
+                preset="ring"
+                items={DEFAULT_ITEMS}
+                onSelect={handleSelect}
+                className="w-full h-full"
+              />
             </div>
           </div>
         </div>

@@ -11,7 +11,6 @@ import Navbar from './components/Navbar'
 import MenuOverlay from './components/MenuOverlay'
 import Hero from './components/Hero'
 import StatStage from './components/StatStage'
-import SelectedWork from './components/SelectedWork'
 import WorkedAt from './components/WorkedAt'
 import Footer from './components/Footer'
 import CaseStudyModal from './components/CaseStudyModal'
@@ -113,10 +112,10 @@ function PortfolioMain() {
         ) : (
           <main>
             <Hero />
-            <StatStage />
-            <SelectedWork
-              onOpenGallery={() => setGalleryOpen(true)}
+            <StatStage
               onOpenCaseStudy={(id) => setActiveCaseStudy(id)}
+              onOpenGallery={() => setGalleryOpen(true)}
+              onNavigate={navigate}
             />
             <WorkedAt />
             <Footer />
