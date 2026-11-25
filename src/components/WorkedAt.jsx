@@ -12,7 +12,7 @@ const COMPANIES = [
     status: 'Database Engineering',
     description:
       'Worked closely across Mavis Market, Mavis Store, and Dev Journey — from competitive research and user interviews to UAT before release.',
-    image: '/images/work/case-study-skymavis.webp',
+    image: '/images/work/iitm-ptf.png',
   },
   {
     id: 'iiit-h',
@@ -23,7 +23,7 @@ const COMPANIES = [
     status: 'Viswam.AI',
     description:
       'Studied Computer Science and Engineering at IIIT Hyderabad, gaining a strong foundation in software development and computer science principles.',
-    image: '/images/work/case-study-iiit-hyderabad.webp',
+    image: '/images/work/iiit-hyd.jpg',
   },
   {
     id: 'machinser',
@@ -34,7 +34,7 @@ const COMPANIES = [
     status: 'Odoo ERP',
     description:
       'Delivered hi-fi visual design across varied product types (time management, weight-loss supplement, call recording, and more), ensuring live products matched the design.',
-    image: '/images/work/web-firekamp.webp',
+    image: '/images/work/machinser.jpg',
   },
   {
     id: 'aws-sbg',
@@ -45,7 +45,7 @@ const COMPANIES = [
     status: 'Game Design & Visuals',
     description:
       'Led a 4-person design team, turning Game Designer wireframes into hi-fi visual designs while working closely with developers to keep live builds on-spec.',
-    image: '/images/work/exploration-almighty-boxxy.webp',
+    image: '/images/work/aws-sbg.jpg',
   },
 
 ]
