@@ -28,48 +28,48 @@ const TWO_PI = 2 * Math.PI
 
 export const DEFAULT_ITEMS = [
   {
-    id: 'skymavis',
-    src: '/images/work/case-study-skymavis.webp',
-    alt: 'SkyMavis Case Study',
-    title: 'SkyMavis',
-    subtitle: 'Product Designer — Mavis Market, Store & Dev Journey',
-    href: '#skymavis',
+    id: 'ente-ksrtc',
+    src: '/images/work/ente-ksrtc.png',
+    alt: 'Ente KSRTC Case Study',
+    title: 'Ente KSRTC',
+    subtitle: 'Bus Reservation System',
+    href: 'https://enteksrtc-4bda.vercel.app/',
   },
   {
-    id: 'opswat',
-    src: '/images/work/case-study-opswat.webp',
-    alt: 'OPSWAT Case Study',
-    title: 'OPSWAT',
-    subtitle: 'Sr. Product Designer — Enterprise Cybersecurity Ecosystem',
-    href: '#opswat',
+    id: 'odoo-hackathon',
+    src: '/images/work/odoo-hackathon.png',
+    alt: 'Odoo Hackathon',
+    title: 'BRIGHTLOOP',
+    subtitle: 'Subscription Management System',
+    href: 'https://huggingface.co/spaces/devangc006/odoo-hackathon',
   },
   {
-    id: 'firekamp',
-    src: '/images/work/web-firekamp.webp',
-    alt: 'FireKamp Website',
-    title: 'FireKamp',
-    subtitle: 'Multi-Product Studio — Sr. Product Designer',
-    href: 'https://www.firekamp.com/',
+    id: 'grandma-remedies',
+    src: '/images/work/grandma-remedies.png',
+    alt: 'Grandma\'s Remedies',
+    title: 'Grandma\'s Remedies',
+    subtitle: 'Home Remedies',
+    href: '#grandma',
   },
   {
-    id: 'pcos-cysterhood',
-    src: '/images/work/app-pcos-cysterhood.webp',
-    alt: 'PCOS Cysterhood App',
-    title: 'PCOS Cysterhood',
-    subtitle: 'Social & Consumer Mobile — UI UX Lead',
-    href: 'https://apps.apple.com/vn/app/cysterhood-pcos-weight-loss/id1638723168',
+    id: 'vitalsync',
+    src: '/images/work/vitalsync.png',
+    alt: 'VitalSync App',
+    title: 'VitalSync',
+    subtitle: 'Personal Health & Environment Wellness Recommendation System',
+    href: '#vitalsync',
   },
   {
-    id: 'tekcom',
-    src: '/images/work/web-tekcom.webp',
-    alt: 'Tekcom Website',
-    title: 'Tekcom',
-    subtitle: 'Digital & Brand Systems — UI/UX Designer',
-    href: 'https://www.tekcom.vn/',
+    id: 'convergex',
+    src: '/images/work/aws-sbg.jpg',
+    alt: 'Convergex',
+    title: 'Convergex',
+    subtitle: 'Social media for various clubs',
+    href: '#convergex',
   },
   {
     id: 'itrackbites',
-    src: '/images/work/app-itrackbites.webp',
+    src: '/images/work/iiit-hyd.jpg',
     alt: 'iTrackBites App',
     title: 'iTrackBites',
     subtitle: 'Health & Nutrition Tracking Mobile App',
@@ -77,35 +77,11 @@ export const DEFAULT_ITEMS = [
   },
   {
     id: 'outdoor-gps',
-    src: '/images/work/app-outdoor-gps.webp',
+    src: '/images/work/iitm-ptf.png',
     alt: 'Outdoor GPS App',
     title: 'Outdoor GPS',
     subtitle: 'Offline OS Maps & Mountain Navigation',
     href: 'https://apps.apple.com/us/app/outdoors-gps-offline-os-maps/id365688106?l=vi',
-  },
-  {
-    id: 'vinh-tuong',
-    src: '/images/work/web-vinh-tuong.webp',
-    alt: 'Vinh Tuong Website',
-    title: 'Vinh Tuong',
-    subtitle: 'Architectural Products & Brand Web',
-    href: 'https://vinhtuong.com/',
-  },
-  {
-    id: 'sortly',
-    src: '/images/work/app-sortly.webp',
-    alt: 'Sortly Inventory App',
-    title: 'Sortly',
-    subtitle: 'Client Product Delivery — Inventory App',
-    href: 'https://www.sortly.com/',
-  },
-  {
-    id: 'almighty-boxxy',
-    src: '/images/work/exploration-almighty-boxxy.webp',
-    alt: 'Almighty Boxxy Game',
-    title: 'Almighty Boxxy',
-    subtitle: 'Game Design & Visuals — Lead Designer',
-    href: 'https://store.steampowered.com/app/1361280/Almighty_Boxxy/',
   },
 ]
 
@@ -127,14 +103,14 @@ export const REEL_PRESETS = {
   },
   ring: {
     direction: 'horizontal',
-    aspect: 1.6,
-    size: 0.42,
-    curvature: 0.6,
-    distance: 3.0,
-    tilt: 6,
-    gap: 22,
-    radius: 14,
-    dim: 0.45,
+    aspect: 1.5,
+    size: 0.58,
+    curvature: 0.52,
+    distance: 2.75,
+    tilt: 5,
+    gap: 24,
+    radius: 16,
+    dim: 0.48,
     motionBlur: 0.6,
     friction: 0.5,
     autoplay: 'step',
@@ -422,7 +398,12 @@ void main() {
       aa = max(aa, 0.5 * travel * g.x);
       float coverage = 1.0 - smoothstep(-aa, aa, sd);
       if (coverage <= 0.0) continue;
-      int layer = int(mod(panel, float(max(uCount, 1))));
+      float countF = float(max(uCount, 1));
+      float mPanel = mod(panel, countF);
+      if (mPanel < 0.0) mPanel += countF;
+      int layer = int(floor(mPanel + 0.001));
+      if (layer >= uCount) layer = 0;
+      if (layer < 0) layer = 0;
       float imageAspect = uAspect[layer];
       vec2 img = uVertical > 0.5
         ? vec2(v / uAcross, -u / uAlong)
@@ -715,12 +696,12 @@ export const VerticalReel = forwardRef(function VerticalReel(
 
       let currentAllocatedLayers = 0
       const allocateTexture = (neededCount) => {
-        const targetW = clamp(64 * Math.ceil((geom.cardW * Math.min(dprVal, 2)) / 64), 384, 1024)
+        const targetW = clamp(64 * Math.ceil((geom.cardW * Math.min(dprVal, 2)) / 64), 384, 1536)
         const isMuchLarger = targetW > 1.3 * texW
         if (currentAllocatedLayers === neededCount && !isMuchLarger) return false
 
         const newW = currentAllocatedLayers === 0 || isMuchLarger ? targetW : texW
-        const newH = Math.round(newW / 1.6)
+        const newH = Math.round(newW / (geom.cardW / Math.max(geom.cardH, 1)))
         currentAllocatedLayers = neededCount
         texW = newW
         texH = newH
@@ -869,7 +850,7 @@ export const VerticalReel = forwardRef(function VerticalReel(
           if (cardH * asp > maxW) cardH = maxW / asp
         } else {
           cardH = clamp(curCfg.size, 0.15, 0.9) * Math.max(viewH - captionSpace, 0.5 * viewH)
-          const maxW = 0.58 * viewW
+          const maxW = 0.68 * viewW
           if (cardH * asp > maxW) cardH = maxW / asp
         }
         const cardW = cardH * asp
@@ -1120,6 +1101,11 @@ export const VerticalReel = forwardRef(function VerticalReel(
             needsNextFrame = true
           }
           fades[i] = layer.drawn ? layer.fade : 0
+        }
+        for (let i = layers.length; i < 32; i++) {
+          const wrapI = i % (layers.length || 1)
+          aspects[i] = aspects[wrapI]
+          fades[i] = fades[wrapI]
         }
 
         if (!introStarted) {
@@ -1397,7 +1383,8 @@ export const VerticalReel = forwardRef(function VerticalReel(
         if (hitIdx === null) return
         const centerIdx = Math.round(springTarget ?? pos)
         if (hitIdx === centerIdx && Math.abs(pos - centerIdx) < 0.2) {
-          cbs.onSelect(wrapIdx(hitIdx))
+          const resolvedItem = itmsRef.current[wrapIdx(hitIdx)] ?? wrapIdx(hitIdx)
+          cbs.onSelect(resolvedItem, wrapIdx(hitIdx))
         } else {
           goToSpring(hitIdx, 0.7 + 0.05 * Math.min(Math.abs(hitIdx - pos), 5), 0.9)
           pauseAutoplay()
@@ -1446,7 +1433,9 @@ export const VerticalReel = forwardRef(function VerticalReel(
           goTo(getCount() - 1)
         } else if (e.key === 'Enter') {
           e.preventDefault()
-          cbs.onSelect(wrapIdx(Math.round(springTarget ?? pos)))
+          const activeWrap = wrapIdx(Math.round(springTarget ?? pos))
+          const resolvedItem = itmsRef.current[activeWrap] ?? activeWrap
+          cbs.onSelect(resolvedItem, activeWrap)
         }
       }
 

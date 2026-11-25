@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { useMenu } from '../context/MenuContext'
 
 const NAV_ITEMS = [
-  { id: '2', eyebrow: '01', label: 'About', href: '#about' },
+  { id: '2', eyebrow: '01', label: 'About', href: '#hero' },
   { id: '3', eyebrow: '02', label: 'Work', href: '/works' },
 ]
 
@@ -167,8 +167,34 @@ export default function Navbar({ onNavigate }) {
       onNavigate?.(href)
     } else if (href.startsWith('#')) {
       e.preventDefault()
-      if (href === '#' || href === '#top') {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+      // If currently on a subpage like /works, navigate to home first then scroll to target
+      if (window.location.pathname !== '/' && window.location.pathname !== '') {
+        onNavigate?.('/')
+        setTimeout(() => {
+          if (href === '#' || href === '#top' || href === '#hero' || href === '#about') {
+            const heroEl = document.getElementById('hero') || document.querySelector('.home-hero')
+            if (heroEl) {
+              heroEl.scrollIntoView({ behavior: 'smooth' })
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          } else {
+            const target = document.querySelector(href)
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth' })
+            }
+          }
+        }, 120)
+        return
+      }
+
+      if (href === '#' || href === '#top' || href === '#hero' || href === '#about') {
+        const heroEl = document.getElementById('hero') || document.querySelector('.home-hero')
+        if (heroEl) {
+          heroEl.scrollIntoView({ behavior: 'smooth' })
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
       } else {
         const target = document.querySelector(href)
         if (target) {

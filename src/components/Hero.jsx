@@ -3,7 +3,7 @@ import GiantTitle from './GiantTitle'
 
 export default function Hero() {
   return (
-    <section className="home-hero relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between">
+    <section id="hero" className="home-hero relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-between">
       {/* Left side: me.png portrait */}
       <div
         className="pointer-events-none absolute left-0 top-0 bottom-0 z-0 h-full w-auto flex items-end select-none"

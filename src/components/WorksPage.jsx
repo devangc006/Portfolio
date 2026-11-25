@@ -32,10 +32,6 @@ export default function WorksPage({ onOpenCaseStudy }) {
       <div className="works-page__content">
         <header className="works-page__header">
           <div className="works-page__heading">
-            <span className="works-page__eyebrow">
-              <span className="works-page__eyebrow-dot" />
-              Selected projects / 2022—2026
-            </span>
             <h1 className="works-page__title">
               Work<span> that moves</span>
               <span className="works-page__title-mark">.</span>

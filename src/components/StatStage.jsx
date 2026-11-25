@@ -71,7 +71,9 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
     return () => observer.disconnect()
   }, [])
 
-  const handleSelect = (item) => {
+  const handleSelect = (selected) => {
+    const item = typeof selected === 'number' ? DEFAULT_ITEMS[selected] : selected
+    if (!item) return
     if (item.id === 'skymavis' || item.id === 'opswat') {
       if (onOpenCaseStudy) {
         onOpenCaseStudy(item.id)
@@ -534,7 +536,14 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
         {/* 3D Ring Work Showcase (Positioned below Core Capabilities & Tech Stack) */}
         <div id="work" className="w-full max-w-[1400px] mx-auto mt-16 sm:mt-24 px-4 sm:px-8">
           <div className="border-b border-[rgba(47,72,15,0.2)] pb-4 mb-6 flex items-end justify-between gap-4">
-            {/* Archive Link to Works Page */}
+            {/* Selected Works Heading (Left-aligned) */}
+            <div className="text-left flex flex-col items-start">
+              <h3 className="font-heading text-3xl sm:text-5xl font-bold uppercase tracking-tight text-[#070210] leading-none text-left">
+                Selected Works
+              </h3>
+            </div>
+
+            {/* Archive Link to Works Page (Right-aligned) */}
             <div>
               <a
                 href="/works"
@@ -553,13 +562,6 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
                 <span className="text-[10px]">↗</span>
               </a>
             </div>
-
-            {/* Selected Works Heading (Right-aligned) */}
-            <div className="text-right flex flex-col items-end">
-              <h3 className="font-heading text-3xl sm:text-5xl font-bold uppercase tracking-tight text-[#070210] leading-none text-right">
-                Selected Works
-              </h3>
-            </div>
           </div>
 
           {/* 3D Vertical Reel Showcase Container with Playground Tile Styling */}
@@ -576,7 +578,7 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
               }}
             />
             <div
-              className="relative w-full h-[480px] sm:h-[540px] lg:h-[620px] bg-[rgba(113,201,206,0.35)] backdrop-blur-sm overflow-hidden"
+              className="relative w-full h-[520px] sm:h-[600px] lg:h-[700px] bg-[rgba(113,201,206,0.35)] backdrop-blur-sm overflow-hidden"
               style={{
                 clipPath: 'polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))',
               }}
@@ -584,6 +586,8 @@ export default function StatStage({ onOpenCaseStudy, onOpenGallery, onNavigate }
               <VerticalReel
                 ref={reelRef}
                 preset="ring"
+                size={0.58}
+                aspect={1.5}
                 items={DEFAULT_ITEMS}
                 onSelect={handleSelect}
                 className="w-full h-full"

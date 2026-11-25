@@ -1,7 +1,7 @@
 import React from 'react'
 
 /**
- * GiantTitle / GiantNameTitle
+ * GiantTitle
  *
  * Renders the user's name or title in an ultra-bold, condensed/compressed
  * display sans-serif typeface with tall vertical stretch, tight tracking,
