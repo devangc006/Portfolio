@@ -30,7 +30,7 @@ export const DEFAULT_ITEMS = [
   {
     id: 'ente-ksrtc',
     src: '/images/work/ente-ksrtc.png',
-    alt: 'Ente KSRTC Case Study',
+    alt: 'Ente KSRTC',
     title: 'Ente KSRTC',
     subtitle: 'Bus Reservation System',
     href: 'https://enteksrtc-4bda.vercel.app/',
@@ -54,7 +54,7 @@ export const DEFAULT_ITEMS = [
   {
     id: 'vitalsync',
     src: '/images/work/vitalsync.png',
-    alt: 'VitalSync App',
+    alt: 'VitalSync',
     title: 'VitalSync',
     subtitle: 'Personal Health & Environment Wellness Recommendation System',
     href: '#vitalsync',
