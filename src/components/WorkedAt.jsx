@@ -11,7 +11,7 @@ const COMPANIES = [
     year: '2026',
     status: 'Database Engineering',
     description:
-      'Worked closely across Mavis Market, Mavis Store, and Dev Journey — from competitive research and user interviews to UAT before release.',
+      'Completed a project-based internship building a Personal Health & Environment Wellness Recommendation System.',
     image: '/images/work/iitm-ptf.png',
   },
   {
@@ -22,7 +22,7 @@ const COMPANIES = [
     year: '2025',
     status: 'Viswam.AI',
     description:
-      'Studied Computer Science and Engineering at IIIT Hyderabad, gaining a strong foundation in software development and computer science principles.',
+      'Completed a 4-week intensive "Summer of AI" internship focused on building impactful technology solutions for the Global South.',
     image: '/images/work/iiit-hyd.jpg',
   },
   {
@@ -33,7 +33,7 @@ const COMPANIES = [
     year: '2026',
     status: 'Odoo ERP',
     description:
-      'Delivered hi-fi visual design across varied product types (time management, weight-loss supplement, call recording, and more), ensuring live products matched the design.',
+      'Completed a 6-week structured internship program demonstrating practical industry skills in Odoo ERP.',
     image: '/images/work/machinser.jpg',
   },
   {
@@ -42,9 +42,9 @@ const COMPANIES = [
     title: 'AWS SBG Execom',
     subtitle: 'Tech Head',
     year: '2026 - Present',
-    status: 'Game Design & Visuals',
+    status: 'Tech Head @ TKMCE',
     description:
-      'Led a 4-person design team, turning Game Designer wireframes into hi-fi visual designs while working closely with developers to keep live builds on-spec.',
+      'Driving cloud literacy initiatives, technical bootcamps, and project architecture reviews on AWS for student members of the AWS Student Body Group (SBG).',
     image: '/images/work/aws-sbg.jpg',
   },
 
